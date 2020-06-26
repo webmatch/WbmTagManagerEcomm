@@ -15,4 +15,5 @@ rm -rf WbmTagManagerEcomm WbmTagManagerEcomm-*.zip
 mkdir -p WbmTagManagerEcomm
 git archive ${commit} | tar -x -C WbmTagManagerEcomm
 composer install --no-dev -n -o -d WbmTagManagerEcomm
+rm -rf WbmTagManagerEcomm/bin WbmTagManagerEcomm/.travis.yml WbmTagManagerEcomm/build.sh WbmTagManagerEcomm/.eslintignore WbmTagManagerEcomm/phpstan.neon.dist WbmTagManagerEcomm/.travis.yml WbmTagManagerEcomm/phpstan* WbmTagManagerEcomm/psalm.xml WbmTagManagerEcomm/CHANGELOG.md
 zip -r WbmTagManagerEcomm-${commit}.zip WbmTagManagerEcomm
