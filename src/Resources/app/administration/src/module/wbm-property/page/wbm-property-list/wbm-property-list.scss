@@ -1,0 +1,32 @@
+.wbm-property-list {
+  .sw-tabs {
+    margin: 0;
+    .sw-tabs__custom-content {
+      padding-bottom: 0;
+    }
+  }
+  .sw-tree {
+    border: 0;
+    .sw-tree__content {
+      overflow: visible;
+    }
+    .sw-tree-item__element {
+      height: 30px;
+      grid-template-columns: 30px 20px auto 30px;
+      cursor: pointer;
+      .sw-tree-item__selection {
+        display: none;
+      }
+      .sw-tree-item__content {
+        .tree-link {
+          padding: 0;
+        }
+      }
+    }
+    .sw-tree-input-field.is--no-children {
+      .sw-tree-item__element {
+        grid-template-columns: 30px auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "wbm-tagmanager": {
+        "tabs": {
+            "menuEntry": "Google Tag Manager",
+            "title": "Google Tag Manager + Enhanced E-Commerce Tracking",
+            "modulesButton": "Modules",
+            "exportButton": "Export data layers",
+            "importHeader": "Import data layers",
+            "importButton": "Import",
+            "backButton": "Back",
+            "jsonImportLabel": "json Import File",
+            "truncateLabel": "Truncate tables before import",
+            "allStorefronts": "All Storefronts",
+            "containerIdHeadline": "GTM Container IDs",
+            "addContainerId": "Edit Container IDs"
+        }
+    }
+}

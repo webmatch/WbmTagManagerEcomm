@@ -1,0 +1,44 @@
+{% block wbm_tagmanager_import %}
+    <sw-page class="wbm-tagmanager-import">
+        <template slot="smart-bar-header">
+            <h2> {{ $tc('wbm-tagmanager.tabs.importHeader') }}</h2>
+        </template>
+
+        <template slot="smart-bar-actions">
+            <sw-button :routerLink="{ name: 'wbm.tagmanager.tabs' }">
+                {{ $t('wbm-tagmanager.tabs.backButton') }}
+            </sw-button>
+        </template>
+
+        <template slot="content">
+            <sw-card-view>
+                <sw-card :isLoading="isLoading">
+                    <sw-file-input
+                            ref="file"
+                            @change="handleFileUpload"
+                            :label="$t('wbm-tagmanager.tabs.jsonImportLabel')"
+                            :allowedMimeTypes="['application/json']"
+                            :maxFileSize="8*1024*1024">
+                    </sw-file-input>
+
+                    <br><br>
+
+                    <sw-field
+                            type="checkbox"
+                            name="truncate"
+                            ref="truncate"
+                            :label="$t('wbm-tagmanager.tabs.truncateLabel')"
+                            :value="true"
+                            @change="truncateChange"></sw-field>
+
+                    <sw-button-process
+                            :isLoading="isLoading"
+                            variant="primary"
+                            @click="onClickImport">
+                        {{ $t('wbm-tagmanager.tabs.importButton') }}
+                    </sw-button-process>
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

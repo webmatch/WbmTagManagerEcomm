@@ -1,0 +1,11 @@
+{
+    "wbm-tagmanager": {
+        "properties": {
+            "title": "dataLayer Properties",
+            "modulesButton": "Modules",
+            "nameLabel": "Name",
+            "valueLabel": "Value",
+            "saveButton": "Save"
+        }
+    }
+}

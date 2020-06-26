@@ -1,0 +1,36 @@
+{% block wbm_property_list %}
+    <sw-page class="wbm-property-list">
+        {% block wbm_property_list_smart_bar %}
+            <template slot="smart-bar-header">
+                <sw-tabs variant="minimal" v-if="modules">
+                    <sw-tabs-item
+                            v-for="module in modules"
+                            :route="{ name: 'wbm.property.list', params: { module: module.module } }"
+                            :active="module.module == $route.params.module">
+                        {{ module.name }}
+                    </sw-tabs-item>
+                    <template slot="content">
+                        <sw-button variant="primary" :routerLink="{ name: 'wbm.module.list' }">
+                            {{ $t('wbm-tagmanager.properties.modulesButton') }}
+                        </sw-button>
+                    </template>
+                </sw-tabs>
+            </template>
+        {% endblock %}
+
+        <template #side-content>
+            <wbm-property-tree
+                    ref="wbmPropertyTree"
+                    :module="$route.params.module"
+            ></wbm-property-tree>
+        </template>
+
+        <template slot="content">
+            {% block wbm_property_list_content %}
+                <wbm-property-detail
+                        :module="$route.params.module"
+                ></wbm-property-detail>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

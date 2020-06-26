@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+
+    <card>
+        <title>Basic Configuration</title>
+        <title lang="de-DE">Grundeinstellungen</title>
+
+        <input-field>
+            <name>containerId</name>
+            <copyable>true</copyable>
+            <label>GTM Container ID</label>
+            <label lang="de-DE">GTM Container ID</label>
+            <placeholder>GTM-XXXXXX</placeholder>
+            <placeholder lang="de-DE">GTM-XXXXXX</placeholder>
+            <helpText>The ID of the container can be found after the creation within the Google Tag Manager backend.</helpText>
+            <helpText lang="de-DE">Die ID des Containers findet sich nach Erstellung eines solchen im Google Tag Manager Backend.</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>isInactive</name>
+            <label>Deactivate GTM Container</label>
+            <label lang="de-DE">Deaktivere GTM Container</label>
+        </input-field>
+
+        <input-field type="bool">
+            <name>isTrackingProductClicks</name>
+            <label>Track product clicks in listings</label>
+            <label lang="de-DE">Produkt-Clicks in Listings tracken</label>
+        </input-field>
+    </card>
+
+</config>

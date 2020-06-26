@@ -1,0 +1,27 @@
+{% block wbm_module_list %}
+    <sw-page class="wbm-module-list">
+        {% block wbm_module_list_smart_bar_actions %}
+            <template slot="smart-bar-actions">
+                <sw-button variant="primary" :routerLink="{ name: 'wbm.tagmanager.tabs' }">
+                    {{ $t('wbm-tagmanager.modules.propertiesButton') }}
+                </sw-button>
+                <sw-button variant="primary" :routerLink="{ name: 'wbm.module.create' }">
+                    {{ $t('wbm-tagmanager.modules.addModulesButton') }}
+                </sw-button>
+            </template>
+        {% endblock %}
+
+        <template slot="content">
+            {% block wbm_module_list_content %}
+                <sw-entity-listing
+                        v-if="modules"
+                        :items="modules"
+                        :repository="repository"
+                        :showSelection="false"
+                        :columns="columns"
+                        detailRoute="wbm.module.detail">
+                </sw-entity-listing>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

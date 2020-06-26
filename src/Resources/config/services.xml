@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Wbm\TagManagerEcomm\Core\Content\Module\ModuleDefinition">
+            <tag name="shopware.entity.definition" entity="wbm_data_layer_modules" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Core\Content\Property\PropertyDefinition">
+            <tag name="shopware.entity.definition" entity="wbm_data_layer_properties" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Subscriber\StorefrontRenderSubscriber">
+            <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
+            <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Subscriber\KernelEventsSubscriber">
+            <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
+            <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Services\DataLayerModules">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Services\DataLayerRenderer">
+            <argument type="service" id="twig" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+        </service>
+        <service id="Wbm\TagManagerEcomm\Twig\TagManagerExtension">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartRuleLoader" />
+            <argument type="service" id="Shopware\Core\System\SalesChannel\Context\SalesChannelContextService" />
+            <argument type="service" id="request_stack" />
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="Wbm\TagManagerEcomm\Resources\snippet\de_DE\SnippetFile_de_DE">
+            <tag name="shopware.snippet.file" priority="100"/>
+        </service>
+        <service id="Wbm\TagManagerEcomm\Resources\snippet\en_GB\SnippetFile_en_GB">
+            <tag name="shopware.snippet.file" priority="100"/>
+        </service>
+
+        <service id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider" decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
+            <argument type="service" id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider.inner" />
+        </service>
+    </services>
+</container>

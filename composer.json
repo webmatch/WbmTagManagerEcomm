@@ -1,0 +1,41 @@
+{
+    "name": "wbm/tag-manager",
+    "description": "Google Tag Manager + Enhanced E-Commerce Tracking",
+    "version": "0.2.2",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "require": {
+        "shopware/core": "*"
+    },
+    "authors": [
+        {
+            "name": "Webmatch GmbH"
+        }
+    ],
+    "extra": {
+        "shopware-plugin-class": "Wbm\\TagManagerEcomm\\WbmTagManagerEcomm",
+        "copyright": "(c) by Webmatch GmbH",
+        "label": {
+            "de-DE": "Google Tag Manager + Enhanced E-Commerce Tracking",
+            "en-GB": "Google Tag Manager + Enhanced E-Commerce Tracking"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Wbm\\TagManagerEcomm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wbm\\TagManagerEcomm\\Test\\": "tests/"
+        }
+    },
+    "suggest": {
+        "shopware/storefront": "Require '6.1'.",
+        "shopware/administration": "Require '6.1'. Allows you to set up the plugin easily"
+    },
+    "conflict": {
+        "shopware/storefront": "<6,>=7",
+        "shopware/administration": "<6,>=7"
+    }
+}

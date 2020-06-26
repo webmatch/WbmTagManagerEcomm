@@ -1,0 +1,8 @@
+{
+    "name": "wbmtagmanager",
+    "version": "1.0.0",
+    "description": "Google Tag Manager + Enhanced E-Commerce Tracking",
+    "main": "main.js",
+    "author": "Webmatch GmbH",
+    "license": "MIT"
+}

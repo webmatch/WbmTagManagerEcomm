@@ -1,0 +1,14 @@
+{
+    "wbm-tagmanager": {
+        "modules": {
+            "title": "dataLayer Module",
+            "propertiesButton": "Eigenschaften",
+            "addModulesButton": "Modul hinzufügen",
+            "nameLabel": "Name",
+            "moduleLabel": "Route",
+            "responseLabel": "Alternative Route der Response",
+            "saveButton": "Speichern",
+            "cancelButton": "Abbrechen"
+        }
+    }
+}

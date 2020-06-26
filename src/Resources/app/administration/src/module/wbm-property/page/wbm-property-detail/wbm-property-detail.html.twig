@@ -1,0 +1,24 @@
+{% block wbm_property_detail %}
+    <sw-card-view>
+        <sw-card v-if="property" :isLoading="isLoading">
+            <sw-field :label="$t('wbm-tagmanager.properties.nameLabel')" v-model="property.name"></sw-field>
+
+            <sw-code-editor
+                    :label="$t('wbm-tagmanager.properties.valueLabel')"
+                    name="value"
+                    identifier="value"
+                    completionMode="entity"
+                    v-model="property.value">
+            </sw-code-editor>
+
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="processSuccess"
+                    variant="primary"
+                    @process-finish="saveFinish"
+                    @click="onClickSave">
+                {{ $t('wbm-tagmanager.properties.saveButton') }}
+            </sw-button-process>
+        </sw-card>
+    </sw-card-view>
+{% endblock %}

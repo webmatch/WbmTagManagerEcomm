@@ -1,0 +1,30 @@
+<sw-tree
+        v-if="!isLoadingInitialData"
+        ref="swTree"
+        after-id-property="afterId"
+        child-count-property="childCount"
+        :searchable="false"
+        :disableContextMenu="false"
+        :onChangeRoute="changeProperty"
+        :items="getProperties"
+        @get-tree-items="onGetTreeItems"
+        @delete-element="onDeleteProperty"
+        @drag-end="onUpdatePositions"
+        @editing-end="onEditEnd">
+    <template slot="headline">
+        <div class="sw-tree-actions__headline">
+            <span>{{ $t('wbm-tagmanager.properties.title') }}</span>
+        </div>
+    </template>
+    <template slot="items" slot-scope="{ treeItems, sortable, draggedItem, newElementId, disableContextMenu, onChangeRoute }">
+        <wbm-tree-item
+                v-for="(item, index) in treeItems"
+                :key="item.id"
+                :item="item"
+                :disableContextMenu="disableContextMenu"
+                :onChangeRoute="onChangeRoute"
+                :newElementId="newElementId"></wbm-tree-item>
+    </template>
+</sw-tree>
+
+<sw-loader v-else></sw-loader>

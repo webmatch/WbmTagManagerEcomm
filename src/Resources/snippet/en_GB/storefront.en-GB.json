@@ -1,0 +1,9 @@
+{
+    "wbmTagManager": {
+        "cookie": {
+            "groupStatistical": "Statistics",
+            "groupStatisticalDescription": "These cookies are used for statistics and shop performance metrics.",
+            "groupStatisticalTagmanager": "Google Tagmanager"
+        }
+    }
+}

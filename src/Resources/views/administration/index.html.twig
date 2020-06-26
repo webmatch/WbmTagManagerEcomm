@@ -1,0 +1,11 @@
+{% sw_extends 'administration/index.html.twig' %}
+
+{% block administration_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/wbmtagmanager/administration/css/wbm-tag-manager-ecomm.css') }}">
+{% endblock %}
+
+{% block administration_scripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/wbmtagmanager/administration/js/wbm-tag-manager-ecomm.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% block wbm_tagmanager_tabs %}
+    <sw-page class="wbm-tagmanager-tabs">
+        {% block wbm_tagmanager_tabs_smart_bar %}
+            <template slot="smart-bar-header">
+                <sw-tabs variant="minimal" v-if="modules">
+                    <sw-tabs-item
+                            v-for="module in modules"
+                            :route="{ name: 'wbm.property.list', params: { module: module.module } }">
+                        {{ module.name }}
+                    </sw-tabs-item>
+                    <template slot="content">
+                        <sw-button variant="primary" :routerLink="{ name: 'wbm.module.list' }">
+                            {{ $t('wbm-tagmanager.tabs.modulesButton') }}
+                        </sw-button>
+                        <sw-button-process
+                                variant="primary"
+                                @click="onClickExport">
+                            {{ $t('wbm-tagmanager.tabs.exportButton') }}
+                        </sw-button-process>
+                        <sw-button variant="primary" :routerLink="{ name: 'wbm.tagmanager.import' }">
+                            {{ $t('wbm-tagmanager.tabs.importHeader') }}
+                        </sw-button>
+                    </template>
+                </sw-tabs>
+            </template>
+        {% endblock %}
+
+        <template slot="content">
+            {% block wbm_tagmanager_tabs_content %}
+                <sw-card-view>
+                    <sw-card v-if="loadedConfig">
+                        <h2>{{ $t('wbm-tagmanager.tabs.containerIdHeadline') }}</h2>
+                        <sw-grid :items="config"
+                                 :header="false"
+                                 :selectable="false"
+                                 :allSelectable="false"
+                                 :isFullpage="false"
+                                 table>
+                            <template slot="columns" slot-scope="{ item }">
+                                <sw-grid-column flex="minmax(200px, 1fr)" dataIndex="salesChannel">
+                                    {{ item.salesChannel }}
+                                </sw-grid-column>
+                                <sw-grid-column flex="minmax(200px, 1fr)" dataIndex="containerId">
+                                    {{ item.containerId }}
+                                </sw-grid-column>
+                                <sw-grid-column flex="minmax(50px, 50px)" dataIndex="isInactive">
+                                    <sw-icon
+                                            small
+                                            name="small-default-x-line-small"
+                                            v-if="item.isInactive || !item.containerId"></sw-icon>
+                                    <sw-icon
+                                            small
+                                            name="small-default-checkmark-line-small"
+                                            v-else></sw-icon>
+                                </sw-grid-column>
+                            </template>
+                        </sw-grid>
+                        <sw-button :routerLink="{ name: 'sw.plugin.settings', params: { namespace: 'WbmTagManagerEcomm' } }">
+                            {{ $t('wbm-tagmanager.tabs.addContainerId') }}
+                        </sw-button>
+                    </sw-card>
+                    <sw-loader v-else></sw-loader>
+
+                    <sw-card>
+                        <iframe src="https://plugins.webmatch.de/wbm_tag_manager/info.php"
+                                style="height:50px;width:100%;border:0"></iframe>
+                    </sw-card>
+                </sw-card-view>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

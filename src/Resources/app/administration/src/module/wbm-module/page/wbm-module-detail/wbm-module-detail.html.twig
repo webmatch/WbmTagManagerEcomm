@@ -1,0 +1,30 @@
+{% block wbm_module_detail %}
+    <sw-page class="wbm-module-detail">
+        <template slot="smart-bar-actions">
+            <sw-button :routerLink="{ name: 'wbm.module.list' }">
+                {{ $t('wbm-tagmanager.modules.cancelButton') }}
+            </sw-button>
+
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="processSuccess"
+                    variant="primary"
+                    @process-finish="saveFinish"
+                    @click="onClickSave">
+                {{ $t('wbm-tagmanager.modules.saveButton') }}
+            </sw-button-process>
+        </template>
+
+        <template slot="content">
+            <sw-card-view>
+                <sw-card v-if="module" :isLoading="isLoading">
+                    <sw-field :label="$t('wbm-tagmanager.modules.nameLabel')" v-model="module.name"></sw-field>
+
+                    <sw-field :label="$t('wbm-tagmanager.modules.moduleLabel')" v-model="module.module"></sw-field>
+
+                    <sw-field :label="$t('wbm-tagmanager.modules.responseLabel')" v-model="module.response"></sw-field>
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}
