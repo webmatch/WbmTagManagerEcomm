@@ -18,6 +18,18 @@
         "label": {
             "de-DE": "Google Tag Manager + Enhanced E-Commerce Tracking",
             "en-GB": "Google Tag Manager + Enhanced E-Commerce Tracking"
+        },
+        "description": {
+            "de-DE": "Integration des Google Tag Managers mit Implementierung von Google Analytics Enhanced E-Commerce Tracking für Shopware 6",
+            "en-GB": "Integration of Google Tag Manager with implementation of Google Analytics Enhanced E-Commerce Tracking for Shopware 6"
+        },
+        "manufacturerLink": {
+            "de-DE": "http://www.webmatch.de",
+            "en-GB": "http://www.webmatch.de"
+        },
+        "supportLink": {
+            "de-DE": "http://www.webmatch.de",
+            "en-GB": "http://www.webmatch.de"
         }
     },
     "autoload": {
