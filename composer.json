@@ -1,7 +1,7 @@
 {
     "name": "wbm/tag-manager",
     "description": "Google Tag Manager + Enhanced E-Commerce Tracking",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "type": "shopware-platform-plugin",
     "license": "proprietary",
     "require": {
@@ -31,8 +31,8 @@
         }
     },
     "suggest": {
-        "shopware/storefront": "Require '6.1'.",
-        "shopware/administration": "Require '6.1'. Allows you to set up the plugin easily"
+        "shopware/storefront": "Require '6.1' - '6.2'.",
+        "shopware/administration": "Require '6.1' - '6.2'. Allows you to set up the plugin easily"
     },
     "conflict": {
         "shopware/storefront": "<6,>=7",
