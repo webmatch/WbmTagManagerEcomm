@@ -18,6 +18,7 @@ services:
 env:
   matrix:
     - SHOPWARE_VERSION="6.1"
+    - SHOPWARE_VERSION="6.2"
   global:
     - PLUGIN_NAME=WbmTagManagerEcomm
     - SHOPWARE_DIRECTORY=${HOME}/shopware
