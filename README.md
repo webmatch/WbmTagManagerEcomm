@@ -22,6 +22,10 @@ Clone this repository into a folder **WbmTagManagerEcomm** within the **custom/p
 * Install the plugin through the Plugin-Manager within the Shopware backend. 
 * Enter the container ID of the desired GTM Container (found in the GTM backend)
 
+##### :exclamation: Attention :exclamation:
+composer package was renamed from `wbm/tag-manager` to `webmatch/tag-manager-sw6` in order to publish the
+package on packagist. If you used a version <= 0.2.5, and you want to update this plugin, your composer.json should be updated too.
+
 Usage
 =====
 The module will be accessible in backend through a new menu point.
