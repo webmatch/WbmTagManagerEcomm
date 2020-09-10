@@ -37,8 +37,8 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
 
     public function onRender(StorefrontRenderEvent $event): void
     {
-        $containerId = $this->modules->getContainerId();
-        $isActive = !empty($containerId) && $this->modules->isActive();
+        $containerId = $this->modules->getContainerId($event->getSalesChannelContext()->getSalesChannel()->getId());
+        $isActive = !empty($containerId) && $this->modules->isActive($event->getSalesChannelContext()->getSalesChannel()->getId());
         $route = $event->getRequest()->attributes->get('_route');
 
         if (!$isActive) {
@@ -71,7 +71,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             );
             $event->setParameter(
                 'isTrackingProductClicks',
-                $this->modules->isTrackingProductClicks()
+                $this->modules->isTrackingProductClicks($event->getSalesChannelContext()->getSalesChannel()->getId())
             );
             $event->setParameter(
                 'wbmGtmCookieEnabled',

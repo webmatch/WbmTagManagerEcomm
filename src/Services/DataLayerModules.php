@@ -62,18 +62,18 @@ class DataLayerModules implements DataLayerModulesInterface
         return $modules;
     }
 
-    public function getContainerId(): ?string
+    public function getContainerId($salesChannelId = null): ?string
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.containerId');
+        return $this->systemConfigService->get('WbmTagManagerEcomm.config.containerId', $salesChannelId);
     }
 
-    public function isActive(): ?bool
+    public function isActive($salesChannelId = null): ?bool
     {
-        return !$this->systemConfigService->get('WbmTagManagerEcomm.config.isInactive');
+        return !$this->systemConfigService->get('WbmTagManagerEcomm.config.isInactive', $salesChannelId);
     }
 
-    public function isTrackingProductClicks(): ?bool
+    public function isTrackingProductClicks($salesChannelId = null): ?bool
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.isTrackingProductClicks');
+        return $this->systemConfigService->get('WbmTagManagerEcomm.config.isTrackingProductClicks', $salesChannelId);
     }
 }

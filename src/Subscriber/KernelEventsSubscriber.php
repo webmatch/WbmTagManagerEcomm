@@ -46,7 +46,8 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
     public function getDataLayerForXmlHttpRequest(ControllerEvent $event): void
     {
-        $isActive = !empty($this->modules->getContainerId()) && $this->modules->isActive();
+        $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
+        $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
         if ($isActive && !$event->getRequest()->cookies->get(self::COOKIE_NAME)) {
             $modules = $this->modules->getModules();
