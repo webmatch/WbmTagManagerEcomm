@@ -78,6 +78,15 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 $enabledCookie
             );
 
+            $event->setParameter(
+                'wbmConsentConfig',
+                [
+                    'hasSWConsentSupport' => $this->modules->hasSWConsentSupport(),
+                    'scriptTagAttributes' => $this->modules->getScriptTagAttributes(),
+                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter()
+                ]
+            );
+
             if (!empty($dataLayer)) {
                 $event->setParameter(
                     'dataLayer',

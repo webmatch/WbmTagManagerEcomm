@@ -4,7 +4,7 @@
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_snippet %}
         {% if gtmContainerId %}<!-- WbmTagManagerEcomm Head Snippet Start -->
-        <script type="text/javascript" id="wbmTagManger">{% verbatim %}
+        <script id="wbmTagManger">{% verbatim %}
             window.dataLayer = window.dataLayer || [];
             var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
             {% endverbatim %}{% if wbmGtmCookieEnabled %}{% verbatim %}
