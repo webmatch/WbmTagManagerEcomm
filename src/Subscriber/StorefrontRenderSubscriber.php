@@ -46,7 +46,6 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
         }
 
         $cookie = $event->getRequest()->cookies->get(KernelEventsSubscriber::COOKIE_NAME);
-        $enabledCookie = $event->getRequest()->cookies->get(CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME);
 
         if ($cookie) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
@@ -74,8 +73,8 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 $this->modules->isTrackingProductClicks()
             );
             $event->setParameter(
-                'wbmGtmCookieEnabled',
-                $enabledCookie
+                'wbmCookieEnabledName',
+                CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME
             );
 
             $event->setParameter(

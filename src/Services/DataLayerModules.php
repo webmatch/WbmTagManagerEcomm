@@ -77,10 +77,9 @@ class DataLayerModules implements DataLayerModulesInterface
         return $this->systemConfigService->get('WbmTagManagerEcomm.config.isTrackingProductClicks');
     }
 
-    public function hasSWConsentSupport(): ?bool
+    public function hasSWConsentSupport(): int
     {
-        dump($this->systemConfigService->get('WbmTagManagerEcomm.config'));
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.hasSWConsentSupport');
+        return ($this->systemConfigService->get('WbmTagManagerEcomm.config.hasSWConsentSupport') ? 1 : 0);
     }
 
     public function getScriptTagAttributes(): string

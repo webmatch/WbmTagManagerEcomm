@@ -4,16 +4,17 @@
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_snippet %}
         {% if gtmContainerId %}<!-- WbmTagManagerEcomm Head Snippet Start -->
-        <script id="wbmTagManger">{% verbatim %}
+        <script id="wbmTagManger" {{ wbmConsentConfig.scriptTagAttributes|raw }}>{% verbatim %}
             window.dataLayer = window.dataLayer || [];
-            var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+            var hasSWConsetSupport = Boolean(Number({% endverbatim %}{{ wbmConsentConfig.hasSWConsentSupport }}{% verbatim %}));
+            var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'{% endverbatim %}{{ wbmConsentConfig.extendedUrlParameter|trim|raw }}{% verbatim %}';f.parentNode.insertBefore(j,f);};
 
             function getCookie(name) {
-                var cookieMatch = document.cookie.match(name + "=(.*?)(;|$)");
+                var cookieMatch = document.cookie.match(name + '=(.*?)(;|$)');
                 return cookieMatch && decodeURI(cookieMatch[1]);
             }
-            var gtmCookieSet = getCookie("wbm-tagmanager-enabled");
-            if (gtmCookieSet == null) {
+            var gtmCookieSet = getCookie('{% endverbatim %}{{ wbmCookieEnabledName }}{% verbatim %}');
+            if (hasSWConsetSupport && gtmCookieSet == null) {
                 window.wbmGoogleTagmanagerId = '{% endverbatim %}{{ gtmContainerId|raw }}{% verbatim %}';
                 window.wbmScriptIsSet = false;
                 window.googleTag = googleTag;

@@ -12,9 +12,9 @@ interface DataLayerModulesInterface
 
     public function isTrackingProductClicks(): ?bool;
 
-    public function hasSWConsentSupport(): ?bool;
+    public function hasSWConsentSupport(): int;
 
-    public function getScriptTagAttributes(): ?string;
+    public function getScriptTagAttributes(): string;
 
-    public function getExtendedURLParameter(): ?string;
+    public function getExtendedURLParameter(): string;
 }
