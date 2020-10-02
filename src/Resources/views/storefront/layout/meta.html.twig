@@ -3,23 +3,28 @@
 {% block layout_head_meta_tags_charset %}
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_snippet %}
-        {% if gtmContainerId %}<!-- WbmTagManagerEcomm Head Snippet Start -->
-        <script id="wbmTagManger" {{ wbmConsentConfig.scriptTagAttributes|raw }}>{% verbatim %}
-            window.dataLayer = window.dataLayer || [];
-            var hasSWConsetSupport = Boolean(Number({% endverbatim %}{{ wbmConsentConfig.hasSWConsentSupport }}{% verbatim %}));
-            var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'{% endverbatim %}{{ wbmConsentConfig.extendedUrlParameter|trim|raw }}{% verbatim %}';f.parentNode.insertBefore(j,f);};
-
+        {% if wbmTagManagerConfig.gtmContainerId %}<!-- WbmTagManagerEcomm Head Snippet Start -->
+        <script id="wbmTagManger" {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>{% verbatim %}
             function getCookie(name) {
                 var cookieMatch = document.cookie.match(name + '=(.*?)(;|$)');
                 return cookieMatch && decodeURI(cookieMatch[1]);
             }
-            var gtmCookieSet = getCookie('{% endverbatim %}{{ wbmCookieEnabledName }}{% verbatim %}');
-            if (hasSWConsetSupport && gtmCookieSet == null) {
-                window.wbmGoogleTagmanagerId = '{% endverbatim %}{{ gtmContainerId|raw }}{% verbatim %}';
+
+            window.dataLayer = window.dataLayer || [];
+            var gtmContainerId = '{% endverbatim %}{{ wbmTagManagerConfig.gtmContainerId|raw }}{% verbatim %}';
+            var gtmCookieSet = getCookie('{% endverbatim %}{{ wbmTagManagerConfig.wbmCookieEnabledName }}{% verbatim %}');
+            var hasSWConsentSupport = Boolean(Number({% endverbatim %}{{ wbmTagManagerConfig.hasSWConsentSupport }}{% verbatim %}));
+            var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'{% endverbatim %}{{ wbmTagManagerConfig.extendedUrlParameter|trim|raw }}{% verbatim %}';f.parentNode.insertBefore(j,f);};
+
+            console.log(hasSWConsentSupport, gtmCookieSet);
+            if (hasSWConsentSupport && gtmCookieSet === null) {
+                console.log('if');
+                window.wbmGoogleTagmanagerId = gtmContainerId;
                 window.wbmScriptIsSet = false;
                 window.googleTag = googleTag;
             } else {
-                googleTag(window, document, 'script', 'dataLayer', '{% endverbatim %}{{ gtmContainerId|raw }}{% verbatim %}');
+                console.log('else');
+                googleTag(window, document, 'script', 'dataLayer', gtmContainerId);
                 googleTag = null;
             }{% endverbatim %}
         </script><!-- WbmTagManagerEcomm Head Snippet End -->{% endif %}

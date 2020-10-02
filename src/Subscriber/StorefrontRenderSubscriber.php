@@ -64,22 +64,13 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
         }
 
         if (!$event->getRequest()->isXmlHttpRequest()) {
-            $event->setParameter(
-                'gtmContainerId',
-                $containerId
-            );
-            $event->setParameter(
-                'isTrackingProductClicks',
-                $this->modules->isTrackingProductClicks()
-            );
-            $event->setParameter(
-                'wbmCookieEnabledName',
-                CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME
-            );
 
             $event->setParameter(
-                'wbmConsentConfig',
+                'wbmTagManagerConfig',
                 [
+                    'gtmContainerId' => $containerId,
+                    'isTrackingProductClicks' => $this->modules->isTrackingProductClicks(),
+                    'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
                     'hasSWConsentSupport' => $this->modules->hasSWConsentSupport(),
                     'scriptTagAttributes' => $this->modules->getScriptTagAttributes(),
                     'extendedUrlParameter' => $this->modules->getExtendedURLParameter()

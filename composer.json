@@ -6,7 +6,8 @@
     "type": "shopware-platform-plugin",
     "license": "proprietary",
     "require": {
-        "shopware/core": "*"
+        "shopware/core": "*",
+        "ext-json": "*"
     },
     "authors": [
         {

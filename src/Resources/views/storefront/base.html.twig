@@ -2,9 +2,9 @@
 
 {% block base_noscript %}
     {% block wbm_base_tag_manager_noscript %}
-        {% if gtmContainerId %}
+        {% if wbmTagManagerConfig.gtmContainerId %}
             <noscript>
-                <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmContainerId|raw }}"
+                <iframe src="https://www.googletagmanager.com/ns.html?id={{ wbmTagManagerConfig.gtmContainerId|raw }}"
                         height="0" width="0" style="display:none;visibility:hidden"></iframe>
             </noscript>
         {% endif %}
@@ -15,7 +15,7 @@
 {% block base_body_script %}
     {{ parent() }}
     {% block wbm_base_tag_manager_click_tracking_script %}
-        {% if gtmContainerId and dataLayer and isTrackingProductClicks %}
+        {% if wbmTagManagerConfig.gtmContainerId and dataLayer and wbmTagManagerConfig.isTrackingProductClicks %}
             <script type="text/javascript">
                 {% block wbm_base_tag_manager_click_tracking_script_inline %}
                     window.gaRegisterClickTracking = function() {
