@@ -2,6 +2,7 @@
 
 namespace Wbm\TagManagerEcomm\Cookie;
 
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Framework\Cookie\CookieProviderInterface;
 
 class CustomCookieProvider implements CookieProviderInterface
@@ -28,16 +29,26 @@ class CustomCookieProvider implements CookieProviderInterface
      */
     private $originalService;
 
-    public function __construct(CookieProviderInterface $service)
-    {
+    /**
+     * @var SystemConfigService
+     */
+    private $systemConfigService;
+
+    public function __construct(
+        CookieProviderInterface $service,
+        SystemConfigService $systemConfigService
+    ) {
         $this->originalService = $service;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function getCookieGroups(): array
     {
-        $cookieGroups = $this->addEntryToStatisticalGroup();
+        if (!$this->systemConfigService->get('WbmTagManagerEcomm.config.hasSWConsentSupport')) {
+            return $this->originalService->getCookieGroups();
+        }
 
-        return $cookieGroups;
+        return $this->addEntryToStatisticalGroup();
     }
 
     protected function addEntryToStatisticalGroup(): array

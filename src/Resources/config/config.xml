@@ -60,7 +60,7 @@
             <defaultValue>true</defaultValue>
             <label>Shopware Cookie consent support</label>
             <label lang="de-DE">Shopware Cookie Consent Unterstützung</label>
-            <helpText>Deactivate this, if you plan to use external cookie consent manager</helpText>
+            <helpText>Activate for integration into Shopware consent manager. Deactivate this, if you plan to use external cookie consent manager</helpText>
             <helpText lang="de-DE">Deaktivieren, wenn Sie einen externen Cookie Consent Manager benutzen möchten</helpText>
         </input-field>
 

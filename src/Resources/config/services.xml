@@ -47,6 +47,7 @@
 
         <service id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider" decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
             <argument type="service" id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider.inner" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
         </service>
     </services>
 </container>
