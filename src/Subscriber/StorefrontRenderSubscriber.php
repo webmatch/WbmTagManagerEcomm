@@ -46,7 +46,6 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
         }
 
         $cookie = $event->getRequest()->cookies->get(KernelEventsSubscriber::COOKIE_NAME);
-        $enabledCookie = $event->getRequest()->cookies->get(CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME);
 
         if ($cookie) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
@@ -65,17 +64,17 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
         }
 
         if (!$event->getRequest()->isXmlHttpRequest()) {
+
             $event->setParameter(
-                'gtmContainerId',
-                $containerId
-            );
-            $event->setParameter(
-                'isTrackingProductClicks',
-                $this->modules->isTrackingProductClicks()
-            );
-            $event->setParameter(
-                'wbmGtmCookieEnabled',
-                $enabledCookie
+                'wbmTagManagerConfig',
+                [
+                    'gtmContainerId' => $containerId,
+                    'isTrackingProductClicks' => $this->modules->isTrackingProductClicks(),
+                    'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
+                    'hasSWConsentSupport' => $this->modules->hasSWConsentSupport(),
+                    'scriptTagAttributes' => $this->modules->getScriptTagAttributes(),
+                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter()
+                ]
             );
 
             if (!empty($dataLayer)) {
