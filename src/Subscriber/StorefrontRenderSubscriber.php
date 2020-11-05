@@ -37,8 +37,9 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
 
     public function onRender(StorefrontRenderEvent $event): void
     {
-        $containerId = $this->modules->getContainerId();
-        $isActive = !empty($containerId) && $this->modules->isActive();
+        $salesChannelId = $event->getSalesChannelContext()->getSalesChannel()->getId();
+        $containerId = $this->modules->getContainerId($salesChannelId);
+        $isActive = !empty($containerId) && $this->modules->isActive($salesChannelId);
         $route = $event->getRequest()->attributes->get('_route');
 
         if (!$isActive) {
@@ -69,11 +70,11 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 'wbmTagManagerConfig',
                 [
                     'gtmContainerId' => $containerId,
-                    'isTrackingProductClicks' => $this->modules->isTrackingProductClicks(),
+                    'isTrackingProductClicks' => $this->modules->isTrackingProductClicks($salesChannelId),
                     'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
-                    'hasSWConsentSupport' => $this->modules->hasSWConsentSupport(),
-                    'scriptTagAttributes' => $this->modules->getScriptTagAttributes(),
-                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter()
+                    'hasSWConsentSupport' => $this->modules->hasSWConsentSupport($salesChannelId),
+                    'scriptTagAttributes' => $this->modules->getScriptTagAttributes($salesChannelId),
+                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId)
                 ]
             );
 
