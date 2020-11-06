@@ -1,3 +1,12 @@
+# 1.1.2
+ * Bugfix: Get sales channel specific config
+
+# 1.1.1
+ * Add possibility to disable consent manager support
+
+# 1.0.0
+ * Breaking Change: rename composer package name
+
 # 0.2.2
  * Bugfix: Set Google Tag Manager cookie lifetime to 90 days
 
