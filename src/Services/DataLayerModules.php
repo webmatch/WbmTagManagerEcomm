@@ -62,33 +62,51 @@ class DataLayerModules implements DataLayerModulesInterface
         return $modules;
     }
 
-    public function getContainerId(): ?string
+    public function getContainerId(?string $salesChannelId = null): ?string
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.containerId');
+         return $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.containerId',
+            $salesChannelId
+        );
     }
 
-    public function isActive(): ?bool
+    public function isActive(?string $salesChannelId = null): ?bool
     {
-        return !$this->systemConfigService->get('WbmTagManagerEcomm.config.isInactive');
+        return !$this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.isInactive',
+            $salesChannelId
+        );
     }
 
-    public function isTrackingProductClicks(): ?bool
+    public function isTrackingProductClicks(?string $salesChannelId = null): ?bool
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.isTrackingProductClicks');
+        return $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.isTrackingProductClicks',
+            $salesChannelId
+        );
     }
 
-    public function hasSWConsentSupport(): int
+    public function hasSWConsentSupport(?string $salesChannelId = null): int
     {
-        return ($this->systemConfigService->get('WbmTagManagerEcomm.config.hasSWConsentSupport') ? 1 : 0);
+        return ($this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.hasSWConsentSupport',
+            $salesChannelId
+        ) ? 1 : 0);
     }
 
-    public function getScriptTagAttributes(): string
+    public function getScriptTagAttributes(?string $salesChannelId = null): string
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.scriptTagAttributes') ?: '';
+        return $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.scriptTagAttributes',
+            $salesChannelId
+        ) ?: '';
     }
 
-    public function getExtendedURLParameter(): string
+    public function getExtendedURLParameter(?string $salesChannelId = null): string
     {
-        return $this->systemConfigService->get('WbmTagManagerEcomm.config.extendedURLParameter') ?: '';
+        return $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.extendedURLParameter',
+            $salesChannelId
+        ) ?: '';
     }
 }
