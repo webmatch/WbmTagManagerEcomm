@@ -7,26 +7,26 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Wbm\TagManagerEcomm\Services\DataLayerModules;
-use Wbm\TagManagerEcomm\Services\DataLayerRenderer;
+use Wbm\TagManagerEcomm\Services\DataLayerModulesInterface;
+use Wbm\TagManagerEcomm\Services\DataLayerRendererInterface;
 
 class KernelEventsSubscriber implements EventSubscriberInterface
 {
     const COOKIE_NAME = '_gtm_push';
 
     /**
-     * @var DataLayerModules
+     * @var DataLayerModulesInterface
      */
     private $modules;
 
     /**
-     * @var DataLayerRenderer
+     * @var DataLayerRendererInterface
      */
     private $dataLayerRenderer;
 
     public function __construct(
-        DataLayerModules $modules,
-        DataLayerRenderer $dataLayerRender
+        DataLayerModulesInterface $modules,
+        DataLayerRendererInterface $dataLayerRender
     ) {
         $this->modules = $modules;
         $this->dataLayerRenderer = $dataLayerRender;
