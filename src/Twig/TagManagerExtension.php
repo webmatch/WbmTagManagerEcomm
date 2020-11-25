@@ -163,7 +163,7 @@ class TagManagerExtension extends AbstractExtension
         string $uuid = '',
         string $quantity = '1',
         string $type = 'product',
-        string $referencedId,
+        string $referencedId = '',
         string $stackable = '1',
         string $removable = '1'
     ): float {
@@ -181,13 +181,13 @@ class TagManagerExtension extends AbstractExtension
 
         $temporaryCart = $this->cartService->createNew(
             \uniqid('temporaryToken.', true),
-            $salesChannelContext->getSalesChannel()->getName()
+            $salesChannelContext->getSalesChannel()->getName() ?: CartService::SALES_CHANNEL
         );
 
         // import current basket to consider all rules
         $actualCart = $this->cartService->getCart($salesChannelContext->getToken(), $salesChannelContext);
-        foreach ($actualCart->getLineItems() as $lineItem) {
-            $temporaryCart->add($lineItem);
+        foreach ($actualCart->getLineItems() as $actualLineItem) {
+            $temporaryCart->add($actualLineItem);
         }
 
         $temporaryCart->add($lineItem);
