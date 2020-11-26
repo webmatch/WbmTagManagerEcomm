@@ -1,6 +1,7 @@
 # 1.1.3
  * Bugfix: 500 error when sales channel name is null
  * Bugfix: price is zero when basket isn't empty
+ * Bugfix: possibility to decorate services (thx to @TimVroom)
  * Feature: extend script tag with user defined attributes
  
 # 1.1.2
