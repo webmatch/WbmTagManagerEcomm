@@ -5,6 +5,7 @@
             "modulesButton": "Module",
             "nameLabel": "Name",
             "valueLabel": "Wert",
+            "onLoadEventLabel": "Mittels \"page.onLoad\"-Event pushen",
             "saveButton": "Speichern"
         }
     }

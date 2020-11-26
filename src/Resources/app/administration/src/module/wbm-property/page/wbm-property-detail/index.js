@@ -85,6 +85,7 @@ Component.register('wbm-property-detail', {
         onClickSave() {
             this.isLoading = true;
 
+            console.log(this.property);
             this.property.value = this.property.value.replace(/(\r\n|\n|\r)/gm, '');
 
             this.repository

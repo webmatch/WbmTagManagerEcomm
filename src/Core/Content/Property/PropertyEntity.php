@@ -39,6 +39,11 @@ class PropertyEntity extends Entity
      */
     protected $value;
 
+    /**
+     * @var bool
+     */
+    protected $onEvent = false;
+
     public function getModule(): string
     {
         return $this->module;
@@ -97,5 +102,15 @@ class PropertyEntity extends Entity
     public function setValue(?string $value): void
     {
         $this->value = $value;
+    }
+
+    public function isOnEvent(): bool
+    {
+        return $this->onLoadEvent;
+    }
+
+    public function setOnEvent(bool $onLoadEvent): void
+    {
+        $this->onLoadEvent = $onLoadEvent;
     }
 }
