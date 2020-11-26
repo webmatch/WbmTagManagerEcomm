@@ -81,7 +81,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
     public function getDataLayer($route): ?string
     {
-        return @$this->dataLayer[$route];
+        return $this->dataLayer[$route] ?? null;
     }
 
     public function fillValues(array $dataLayer): string
