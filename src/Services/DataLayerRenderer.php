@@ -103,6 +103,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
         while (preg_match('/({"startArrayOf":".*?"},)/i', $dataLayer, $matches)) {
             foreach ($matches as $match) {
+                if (getenv('APP_ENV') === 'dev') { dump($match); }
                 $foreachObj = json_decode(rtrim($match, ','));
                 if ($foreachObj->startArrayOf) {
                     $arguments = explode(' in ', $foreachObj->startArrayOf);
