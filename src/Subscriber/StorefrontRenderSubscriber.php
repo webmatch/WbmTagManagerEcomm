@@ -50,7 +50,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
 
         if ($cookie) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
-                $dataLayer = $cookie;
+                $dataLayer = json_decode($cookie, true);
             }
         } else {
             $parameters = $event->getParameters();
@@ -78,6 +78,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 ]
             );
 
+            dump($dataLayer);
             if (!empty($dataLayer)) {
                 $event->setParameter(
                     'dataLayer',
