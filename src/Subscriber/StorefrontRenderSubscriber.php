@@ -54,15 +54,12 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             }
         } else {
             $parameters = $event->getParameters();
-            dump($parameters);
 
             $modules = $this->modules->getModules();
-            dump($modules);
 
             if (array_key_exists($route, $modules)) {
                 $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)
                     ->renderDataLayer($route);
-                dump($dataLayer);
                 $dataLayer =   $dataLayer->getDataLayer($route);
             }
         }

@@ -22,6 +22,6 @@ class Migration1606378923ExtendProperties extends MigrationStep
 
     public function updateDestructive(Connection $connection): void
     {
-        $connection->executeQuery('ALTER TABLE `wbm_data_layer_properties` DROP COLUMN `on_event`;');
+        //
     }
 }
