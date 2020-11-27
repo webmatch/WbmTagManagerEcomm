@@ -45,6 +45,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
     public function renderDataLayer(string $route): DataLayerRendererInterface
     {
         $properties = $this->getChildrenList(null, $route);
+        if (getenv('APP_ENV') === 'dev') { dump($properties); }
 
         $dataLayer = $this->fillValues($properties);
 
@@ -62,6 +63,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
             array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
         }
 
+        if (getenv('APP_ENV') === 'dev') { dump($dataLayer); }
         if (!empty($dataLayer['default'])) {
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }

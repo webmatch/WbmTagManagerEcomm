@@ -60,6 +60,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             if (array_key_exists($route, $modules)) {
                 $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)
                     ->renderDataLayer($route);
+                if (getenv('APP_ENV') === 'dev') { dump($dataLayer); }
                 $dataLayer =   $dataLayer->getDataLayer($route);
             }
         }
@@ -78,6 +79,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 ]
             );
 
+            if (getenv('APP_ENV') === 'dev') { dump($dataLayer); }
             if (!empty($dataLayer)) {
                 $event->setParameter(
                     'dataLayer',
