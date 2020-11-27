@@ -27,7 +27,7 @@
         </script><!-- WbmTagManagerEcomm Head Snippet End -->{% endif %}
     {% endblock %}
     {% block wbm_layout_head_tag_manager_data_layer_push %}
-        {% if dataLayer %}<script type="text/javascript">
+        {% if dataLayer %}<script {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>
             window.dataLayer.push({{ dataLayer|raw }});
         </script>{% endif %}
     {% endblock %}
