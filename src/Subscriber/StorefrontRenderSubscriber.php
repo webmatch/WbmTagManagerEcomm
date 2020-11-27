@@ -78,7 +78,6 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 ]
             );
 
-            dump($dataLayer);
             if (!empty($dataLayer)) {
                 $event->setParameter(
                     'dataLayer',
