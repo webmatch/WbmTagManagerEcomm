@@ -54,6 +54,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
             $dataLayer = $template->render($this->getVariables($route));
         } catch (\Exception $e) {
+            if (getenv('APP_ENV') === 'dev') { dump($e); }
             $dataLayer = json_encode(['error' => $e->getMessage()]);
         }
 
