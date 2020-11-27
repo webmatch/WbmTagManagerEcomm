@@ -32,11 +32,8 @@
 
             {% endverbatim %}{% if onEvent %}{% verbatim %}
             var onEventDataLayer = '{% endverbatim %}{{ onEvent|raw }}{% verbatim %}';
-            window.addEventListener('load', function() {
-                console.log('########################################################################################');
-                console.log('########################################################################################');
-                console.log('########################################################################################');
-                window.dataLayer.push(onEventDataLayer);
+            document.addEventListener('DOMContentLoaded', function() {
+                window.dataLayer.push(JSON.parse(onEventDataLayer));
             });
             {% endverbatim %}{% endif %}
         </script>{% endif %}

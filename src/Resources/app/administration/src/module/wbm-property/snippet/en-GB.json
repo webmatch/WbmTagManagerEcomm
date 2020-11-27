@@ -5,7 +5,7 @@
             "modulesButton": "Modules",
             "nameLabel": "Name",
             "valueLabel": "Value",
-            "onLoadEventLabel": "Wait for page.onLoad event",
+            "onLoadEventLabel": "Push as separate event",
             "saveButton": "Save"
         }
     }

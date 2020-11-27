@@ -63,11 +63,10 @@ class DataLayerRenderer implements DataLayerRendererInterface
         }
 
         if (!empty($dataLayer['default'])) {
-            $dataLayer['default']['event'] = 'pushedDefault';
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }
         if (!empty($dataLayer['onEvent'])) {
-            $dataLayer['onEvent']['event'] = 'pushed' . ucfirst(array_key_first($dataLayer['onEvent']));
+            $dataLayer['onEvent']['event'] = ucfirst(array_key_first($dataLayer['onEvent'])) . 'Push';
             $this->dataLayer[$route]['onEvent'] = json_encode($dataLayer['onEvent']);
         }
 
@@ -152,7 +151,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
             $root = ($property['parent_id'] === null);
             $onEvent = ($property['on_event'] === "1");
             $subProperties = null;
-            if ((int) $property['child_count'] > 0) {
+            if ((int)$property['child_count'] > 0) {
                 $subProperties = $this->getChildrenList($property['id'], $module);
             }
             $value = $property['value'];

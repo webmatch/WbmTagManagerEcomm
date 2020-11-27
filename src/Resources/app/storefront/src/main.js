@@ -14,9 +14,7 @@ HttpClient.prototype._registerOnLoaded = function (request, callback) {
 
         if (gtmPush && window.dataLayer) {
             const pushes = JSON.parse(gtmPush);
-            console.log(pushes);
             for (const key in pushes) {
-                console.log(JSON.parse(pushes[key]));
                 window.dataLayer.push(JSON.parse(pushes[key]));
             }
 
