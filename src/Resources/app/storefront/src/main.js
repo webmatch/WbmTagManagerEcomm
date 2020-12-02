@@ -1,5 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import { COOKIE_CONFIGURATION_UPDATE } from 'src/plugin/cookie/cookie-configuration.plugin';
 import PluginManager from 'src/plugin-system/plugin.manager';
 import HttpClient from 'src/service/http-client.service';
 import ProductClickTracking from './plugin/productClickTracking.plugin'
@@ -47,4 +46,5 @@ function eventCallback(updatedCookies) {
     }
 }
 
+import { COOKIE_CONFIGURATION_UPDATE } from 'src/plugin/cookie/cookie-configuration.plugin';
 document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, eventCallback);
