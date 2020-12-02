@@ -43,6 +43,7 @@ export default class ProductClickTracking extends Plugin {
                 return value.id === productNo;
             });
 
+        console.log(product);
         if (product === undefined) {
             return;
         }
