@@ -2,9 +2,11 @@
 import HttpClient from 'src/service/http-client.service';
 import PluginManager from 'src/plugin-system/plugin.manager';
 import ProductClickTracking from './plugin/productClickTracking.plugin'
+import Promotions from './plugin/promotions.plugin'
 
 PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a');
 PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button');
+PluginManager.register('Promotions', Promotions);
 
 const __superFunc = HttpClient.prototype._registerOnLoaded;
 HttpClient.prototype._registerOnLoaded = function (request, callback) {

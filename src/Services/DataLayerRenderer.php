@@ -45,7 +45,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
     public function renderDataLayer(string $route): DataLayerRendererInterface
     {
         $properties = $this->getChildrenList(null, $route);
-        if (getenv('APP_ENV') === 'dev') { dump($properties); }
 
         $dataLayer = $this->fillValues($properties);
 
@@ -54,7 +53,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
             $dataLayer = $template->render($this->getVariables($route));
         } catch (\Exception $e) {
-            if (getenv('APP_ENV') === 'dev') { dump($e); }
             $dataLayer = json_encode(['error' => $e->getMessage()]);
         }
 
@@ -64,7 +62,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
             array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
         }
 
-        if (getenv('APP_ENV') === 'dev') { dump($dataLayer); }
         if (!empty($dataLayer['default'])) {
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }
@@ -104,7 +101,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
         while (preg_match('/({"startArrayOf":".*?"},)/i', $dataLayer, $matches)) {
             foreach ($matches as $match) {
-                if (getenv('APP_ENV') === 'dev') { dump($match); }
                 $foreachObj = json_decode(rtrim($match, ','));
                 if ($foreachObj->startArrayOf) {
                     $arguments = explode(' in ', $foreachObj->startArrayOf);
