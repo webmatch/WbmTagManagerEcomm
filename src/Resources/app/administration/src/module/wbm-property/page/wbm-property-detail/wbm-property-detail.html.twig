@@ -13,12 +13,12 @@
 
             <sw-checkbox-field
                 :label="$t('wbm-tagmanager.properties.onLoadEventLabel')"
-                v-model="property.onLoadEvent"
+                v-model="property.onEvent"
                 v-if="!property.parentId">
             </sw-checkbox-field>
-            <sw-field :label="$t('wbm-tagmanager.properties.nameLabel')"
+            <sw-field :label="$t('wbm-tagmanager.properties.eventNameLabel')"
                       v-model="property.eventName"
-                      v-if="property.onLoadEvent">
+                      v-if="property.onEvent">
             </sw-field>
 
             <sw-button-process

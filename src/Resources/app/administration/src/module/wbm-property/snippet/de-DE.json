@@ -6,6 +6,7 @@
             "nameLabel": "Name",
             "valueLabel": "Wert",
             "onLoadEventLabel": "Als separates Event pushen",
+            "eventNameLabel": "Eventname",
             "saveButton": "Speichern"
         }
     }
