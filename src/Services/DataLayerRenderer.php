@@ -69,7 +69,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }
         if (!empty($dataLayer['onEvent'])) {
-            dump($dataLayer['onEvent']);
             $dataLayer['onEvent']['event'] = $dataLayer['onEvent']['event'] ?? ucfirst(array_key_first($dataLayer['onEvent'])) . 'Push';
             $this->dataLayer[$route]['onEvent'] = json_encode($dataLayer['onEvent']);
         }
@@ -150,7 +149,6 @@ class DataLayerRenderer implements DataLayerRendererInterface
             ]
         );
         $properties = $qb->execute()->fetchAll(\PDO::FETCH_ASSOC);
-        dump($properties);
 
         $namedProperties = [];
 
