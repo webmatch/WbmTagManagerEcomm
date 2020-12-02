@@ -111,12 +111,12 @@ class PropertyEntity extends Entity
 
     public function isOnEvent(): bool
     {
-        return $this->onLoadEvent;
+        return $this->onEvent;
     }
 
-    public function setOnEvent(bool $onLoadEvent): void
+    public function setOnEvent(bool $onEvent): void
     {
-        $this->onLoadEvent = $onLoadEvent;
+        $this->onEvent = $onEvent;
     }
 
     public function getEventName(): string

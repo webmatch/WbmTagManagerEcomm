@@ -42,7 +42,7 @@ class PropertyDefinition extends EntityDefinition
             (new IntField('child_count', 'childCount')),
             (new StringField('name', 'name'))->addFlags(new Required()),
             (new LongTextField('value', 'value')),
-            (new BoolField('on_event', 'onLoadEvent')),
+            (new BoolField('on_event', 'onEvent')),
             (new StringField('event_name', 'eventName'))
         ]);
     }

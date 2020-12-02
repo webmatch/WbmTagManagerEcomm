@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
-import PluginManager from 'src/plugin-system/plugin.manager';
 import HttpClient from 'src/service/http-client.service';
+import PluginManager from 'src/plugin-system/plugin.manager';
 import ProductClickTracking from './plugin/productClickTracking.plugin'
 
 PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box');
