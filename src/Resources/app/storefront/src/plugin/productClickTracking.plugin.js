@@ -4,17 +4,17 @@ import DomAccess from 'src/helper/dom-access.helper';
 export default class ProductClickTracking extends Plugin {
 
     init() {
-        this._registerEvents();
+        this.registerEvents();
     }
 
-    _registerEvents() {
+    registerEvents() {
         var self = this;
         this.el.addEventListener('click', function (event) {
-            self._onProductClicked(event)
+            self.onProductClicked(event)
         });
     }
 
-    _setImpressions() {
+    setImpressions() {
         var self = this;
 
         var dataLayer = window.dataLayer;
@@ -33,9 +33,9 @@ export default class ProductClickTracking extends Plugin {
         }
     }
 
-    _onProductClicked(event) {
+    onProductClicked(event) {
         var self = this;
-        self._setImpressions();
+        self.setImpressions();
 
         var inputField = DomAccess.querySelector(self.el, '[itemprop="mpn"]'),
             productNo = DomAccess.getAttribute(inputField, 'content'),
