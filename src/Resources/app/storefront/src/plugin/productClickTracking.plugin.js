@@ -9,7 +9,9 @@ export default class ProductClickTracking extends Plugin {
 
     _registerEvents() {
         var self = this;
-        this.el.addEventListener('click', function() { self._onProductClicked() });
+        this.el.addEventListener('click', function (event) {
+            self._onProductClicked(event)
+        });
     }
 
     _setImpressions() {
@@ -31,7 +33,7 @@ export default class ProductClickTracking extends Plugin {
         }
     }
 
-    _onProductClicked() {
+    _onProductClicked(event) {
         var self = this;
         self._setImpressions();
 
@@ -45,14 +47,22 @@ export default class ProductClickTracking extends Plugin {
             return;
         }
 
-        window.dataLayer.push({
-            'event': 'productClick',
-            'ecommerce': {
-                'click': {
-                    'actionField': {'list': product.list},
-                    'products': [product]
+        console.log(event.target);
+        event.preventDefault()
+
+        if (event.target.nodeName === 'A') {
+            window.dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': {'list': product.list},
+                        'products': [product]
+                    }
                 }
-            }
-        });
+            });
+            document.location = DomAccess.getAttribute(event.target, 'href');
+        } else {
+            console.log('do not send click');
+        }
     }
 }
