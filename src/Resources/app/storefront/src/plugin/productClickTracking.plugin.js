@@ -9,9 +9,8 @@ export default class ProductClickTracking extends Plugin {
 
     registerEvents() {
         var self = this;
-        console.log(this.el);
         this.el.addEventListener('click', function (event) {
-            self.onProductClicked(event)
+            self.onProductClicked(event);
         });
     }
 
@@ -36,6 +35,9 @@ export default class ProductClickTracking extends Plugin {
 
     onProductClicked(event) {
         var self = this;
+        if (DomAccess.hasAttribute(self.el, 'href')) {
+            event.preventDefault();
+        }
         self.setImpressions();
 
         var parent = self.el.closest('.product-box'),
@@ -45,29 +47,23 @@ export default class ProductClickTracking extends Plugin {
                 return value.id === productNo;
             });
 
-        console.log(parent);
-        console.log(product);
         if (product === undefined) {
             return;
         }
 
-        console.log(event);
-        console.log(event.target);
-        event.preventDefault()
-
-        if (event.target.nodeName === 'A' || event.target.nodeName === 'BUTTON') {
-            window.dataLayer.push({
-                'event': 'productClick',
-                'ecommerce': {
-                    'click': {
-                        'actionField': {'list': product.list},
-                        'products': [product]
-                    }
+        window.dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': {'list': product.list},
+                    'products': [product]
                 }
-            });
-            // if (DomAccess.hasAttribute(event.target, 'href')) {
-            //     document.location = DomAccess.getAttribute(event.target, 'href');
-            // }
+            }
+        });
+
+
+        if (DomAccess.hasAttribute(self.el, 'href')) {
+            document.location = DomAccess.getAttribute(self.el, 'href');
         }
     }
 }
