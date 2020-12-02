@@ -31,9 +31,9 @@
             window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
 
             {% endverbatim %}{% if onEvent %}{% verbatim %}
-            var onEventDataLayer = '{% endverbatim %}{{ onEvent|raw }}{% verbatim %}';
+            var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
             document.addEventListener('DOMContentLoaded', function() {
-                window.dataLayer.push(JSON.parse(onEventDataLayer));
+                window.dataLayer.push(onEventDataLayer);
             });
             {% endverbatim %}{% endif %}
         </script>{% endif %}

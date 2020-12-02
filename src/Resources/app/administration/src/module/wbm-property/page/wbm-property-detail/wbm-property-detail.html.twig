@@ -16,6 +16,10 @@
                 v-model="property.onLoadEvent"
                 v-if="!property.parentId">
             </sw-checkbox-field>
+            <sw-field :label="$t('wbm-tagmanager.properties.nameLabel')"
+                      v-model="property.eventName"
+                      v-if="property.onLoadEvent">
+            </sw-field>
 
             <sw-button-process
                     :isLoading="isLoading"

@@ -69,7 +69,8 @@ class DataLayerRenderer implements DataLayerRendererInterface
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }
         if (!empty($dataLayer['onEvent'])) {
-            $dataLayer['onEvent']['event'] = ucfirst(array_key_first($dataLayer['onEvent'])) . 'Push';
+            dump($dataLayer['onEvent']);
+            $dataLayer['onEvent']['event'] = $dataLayer['onEvent']['event'] ?? ucfirst(array_key_first($dataLayer['onEvent'])) . 'Push';
             $this->dataLayer[$route]['onEvent'] = json_encode($dataLayer['onEvent']);
         }
 
@@ -144,16 +145,19 @@ class DataLayerRenderer implements DataLayerRendererInterface
                 'property.id',
                 'property.child_count',
                 'property.on_event',
+                'property.event_name',
                 'property.parent_id',
             ]
         );
         $properties = $qb->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        dump($properties);
 
         $namedProperties = [];
 
         foreach ($properties as $key => &$property) {
             $root = ($property['parent_id'] === null);
             $onEvent = ($property['on_event'] === "1");
+            $eventName = trim($property['event_name']);
             $subProperties = null;
             if ((int)$property['child_count'] > 0) {
                 $subProperties = $this->getChildrenList($property['id'], $module);
@@ -166,6 +170,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
                 $property['id'],
                 $property['child_count'],
                 $property['on_event'],
+                $property['event_name'],
                 $property['parent_id']
             );
 
@@ -186,6 +191,9 @@ class DataLayerRenderer implements DataLayerRendererInterface
             if ($root) {
                 $key = ($onEvent ? 'onEvent' : 'default');
                 $namedProperties[$key][$name] = $property;
+                if ($key === 'onEvent' && !empty($eventName)) {
+                    $namedProperties[$key]['event'] = $eventName;
+                }
             } else {
                 $namedProperties[$name] = $property;
             }

@@ -44,6 +44,11 @@ class PropertyEntity extends Entity
      */
     protected $onEvent = false;
 
+    /**
+     * @var string
+     */
+    protected $eventName = '';
+
     public function getModule(): string
     {
         return $this->module;
@@ -112,5 +117,15 @@ class PropertyEntity extends Entity
     public function setOnEvent(bool $onLoadEvent): void
     {
         $this->onLoadEvent = $onLoadEvent;
+    }
+
+    public function getEventName(): string
+    {
+        return $this->eventName;
+    }
+
+    public function setEventName(string $eventName): void
+    {
+        $this->eventName = $eventName;
     }
 }

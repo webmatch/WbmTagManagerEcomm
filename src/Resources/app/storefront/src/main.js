@@ -1,7 +1,10 @@
 /* eslint-disable import/no-unresolved */
-
-import HttpClient from 'src/service/http-client.service';
 import { COOKIE_CONFIGURATION_UPDATE } from 'src/plugin/cookie/cookie-configuration.plugin';
+import PluginManager from 'src/plugin-system/plugin.manager';
+import HttpClient from 'src/service/http-client.service';
+import ProductClickTracking from './plugin/productClickTracking.plugin'
+
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box');
 
 const __superFunc = HttpClient.prototype._registerOnLoaded;
 HttpClient.prototype._registerOnLoaded = function (request, callback) {
