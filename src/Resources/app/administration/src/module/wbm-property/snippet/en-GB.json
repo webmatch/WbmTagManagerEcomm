@@ -5,7 +5,7 @@
             "modulesButton": "Modules",
             "nameLabel": "Name",
             "valueLabel": "Value",
-            "onLoadEventLabel": "Push as separate event",
+            "onEventLabel": "Push as separate event",
             "eventNameLabel": "Eventname",
             "saveButton": "Save"
         }
