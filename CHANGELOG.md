@@ -1,3 +1,9 @@
+# 1.2.0
+ * Feature: possibility to send ecommerce values as separate event
+ * Feature: default properties for coupon and payment method in option
+ * Feature: add tracking of product clicks
+ * Feature: add tracking of promotions and promotion clicks
+
 # 1.1.3
  * Bugfix: 500 error when sales channel name is null
  * Bugfix: price is zero when basket isn't empty
