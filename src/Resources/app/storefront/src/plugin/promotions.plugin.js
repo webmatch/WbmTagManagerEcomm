@@ -5,8 +5,12 @@ export default class Promotions extends Plugin {
 
     init() {
         let self = this;
-        let promotionObjects = DomAccess.querySelectorAll(this.el, '[data-promotion]');
-        console.log(promotionObjects);
+        let promotionObjects = false;
+        try {
+            promotionObjects = DomAccess.querySelectorAll(this.el, '[data-promotion]');
+        } catch(e) {
+            // just no object found
+        }
 
         if (!promotionObjects) {
             return;
@@ -40,7 +44,7 @@ export default class Promotions extends Plugin {
                 })
             })
         } catch (e) {
-            // do nothing
+            // just no object found
         }
     }
 
@@ -79,7 +83,6 @@ export default class Promotions extends Plugin {
     }
 
     pushPromoView() {
-        console.log(this.promotions);
         if (this.promotions.length > 0) {
             window.dataLayer.push({
                 'event': 'promotions',
