@@ -27,8 +27,15 @@
         </script><!-- WbmTagManagerEcomm Head Snippet End -->{% endif %}
     {% endblock %}
     {% block wbm_layout_head_tag_manager_data_layer_push %}
-        {% if dataLayer %}<script {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>
-            window.dataLayer.push({{ dataLayer|raw }});
+        {% if dataLayer %}<script {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>{% verbatim %}
+            window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
+
+            {% endverbatim %}{% if onEvent %}{% verbatim %}
+            var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
+            document.addEventListener('DOMContentLoaded', function() {
+                window.dataLayer.push(onEventDataLayer);
+            });
+            {% endverbatim %}{% endif %}
         </script>{% endif %}
     {% endblock %}
 {% endblock %}

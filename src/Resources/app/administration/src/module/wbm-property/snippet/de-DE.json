@@ -5,6 +5,8 @@
             "modulesButton": "Module",
             "nameLabel": "Name",
             "valueLabel": "Wert",
+            "onEventLabel": "Als separates Event pushen",
+            "eventNameLabel": "Eventname",
             "saveButton": "Speichern"
         }
     }

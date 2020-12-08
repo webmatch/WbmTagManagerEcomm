@@ -64,7 +64,7 @@ class DataLayerModules implements DataLayerModulesInterface
 
     public function getContainerId(?string $salesChannelId = null): ?string
     {
-         return $this->systemConfigService->get(
+        return $this->systemConfigService->get(
             'WbmTagManagerEcomm.config.containerId',
             $salesChannelId
         );
@@ -88,10 +88,10 @@ class DataLayerModules implements DataLayerModulesInterface
 
     public function hasSWConsentSupport(?string $salesChannelId = null): int
     {
-        return ($this->systemConfigService->get(
+        return $this->systemConfigService->get(
             'WbmTagManagerEcomm.config.hasSWConsentSupport',
             $salesChannelId
-        ) ? 1 : 0);
+        ) ? 1 : 0;
     }
 
     public function getScriptTagAttributes(?string $salesChannelId = null): string

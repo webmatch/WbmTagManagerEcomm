@@ -62,7 +62,13 @@ class DataLayerRenderer implements DataLayerRendererInterface
             array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
         }
 
-        $this->dataLayer[$route] = json_encode($dataLayer);
+        if (!empty($dataLayer['default'])) {
+            $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
+        }
+        if (!empty($dataLayer['onEvent'])) {
+            $dataLayer['onEvent']['event'] = $dataLayer['onEvent']['event'] ?? ucfirst(array_key_first($dataLayer['onEvent'])) . 'Push';
+            $this->dataLayer[$route]['onEvent'] = json_encode($dataLayer['onEvent']);
+        }
 
         return $this;
     }
@@ -79,7 +85,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
         return $this;
     }
 
-    public function getDataLayer($route): ?string
+    public function getDataLayer($route): ?array
     {
         return $this->dataLayer[$route] ?? null;
     }
@@ -133,6 +139,9 @@ class DataLayerRenderer implements DataLayerRendererInterface
                 'property.value',
                 'property.id',
                 'property.child_count',
+                'property.on_event',
+                'property.event_name',
+                'property.parent_id',
             ]
         );
         $properties = $qb->execute()->fetchAll(\PDO::FETCH_ASSOC);
@@ -140,6 +149,9 @@ class DataLayerRenderer implements DataLayerRendererInterface
         $namedProperties = [];
 
         foreach ($properties as $key => &$property) {
+            $root = ($property['parent_id'] === null);
+            $onEvent = ($property['on_event'] === '1');
+            $eventName = trim($property['event_name']);
             $subProperties = null;
             if ((int) $property['child_count'] > 0) {
                 $subProperties = $this->getChildrenList($property['id'], $module);
@@ -150,7 +162,10 @@ class DataLayerRenderer implements DataLayerRendererInterface
                 $property['name'],
                 $property['value'],
                 $property['id'],
-                $property['child_count']
+                $property['child_count'],
+                $property['on_event'],
+                $property['event_name'],
+                $property['parent_id']
             );
 
             if (!empty($subProperties)) {
@@ -167,7 +182,15 @@ class DataLayerRenderer implements DataLayerRendererInterface
                 $property = '{% endverbatim %}' . $value . '{% verbatim %}';
             }
 
-            $namedProperties[$name] = $property;
+            if ($root) {
+                $key = ($onEvent ? 'onEvent' : 'default');
+                if ($key === 'onEvent' && !empty($eventName)) {
+                    $namedProperties[$key]['event'] = $eventName;
+                }
+                $namedProperties[$key][$name] = $property;
+            } else {
+                $namedProperties[$name] = $property;
+            }
         }
 
         return $namedProperties;
@@ -175,7 +198,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
     private function castArrayValues(&$value, $key): void
     {
-        if (in_array($key, self::STRING_VALUES)) {
+        if (in_array($key, self::STRING_VALUES, true)) {
             return;
         }
 

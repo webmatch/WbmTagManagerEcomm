@@ -10,7 +10,7 @@ interface DataLayerRendererInterface
 
     public function setVariables(string $route, $variables): DataLayerRendererInterface;
 
-    public function getDataLayer($route): ?string;
+    public function getDataLayer($route): ?array;
 
     public function getChildrenList($id, $module): array;
 }

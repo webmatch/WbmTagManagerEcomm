@@ -25,7 +25,6 @@ Component.register('wbm-tagmanager-import', {
 
     methods: {
         truncateChange(state) {
-            console.log(state);
             this.truncate = state;
         },
         handleFileUpload() {

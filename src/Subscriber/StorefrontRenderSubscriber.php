@@ -50,7 +50,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
 
         if ($cookie) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
-                $dataLayer = $cookie;
+                $dataLayer = json_decode($cookie, true);
             }
         } else {
             $parameters = $event->getParameters();
@@ -59,13 +59,12 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
 
             if (array_key_exists($route, $modules)) {
                 $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)
-                    ->renderDataLayer($route)
-                    ->getDataLayer($route);
+                    ->renderDataLayer($route);
+                $dataLayer = $dataLayer->getDataLayer($route);
             }
         }
 
         if (!$event->getRequest()->isXmlHttpRequest()) {
-
             $event->setParameter(
                 'wbmTagManagerConfig',
                 [
@@ -74,15 +73,21 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                     'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
                     'hasSWConsentSupport' => $this->modules->hasSWConsentSupport($salesChannelId),
                     'scriptTagAttributes' => $this->modules->getScriptTagAttributes($salesChannelId),
-                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId)
+                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId),
                 ]
             );
 
             if (!empty($dataLayer)) {
                 $event->setParameter(
                     'dataLayer',
-                    $dataLayer
+                    $dataLayer['default']
                 );
+                if (array_key_exists('onEvent', $dataLayer)) {
+                    $event->setParameter(
+                        'onEvent',
+                        $dataLayer['onEvent']
+                    );
+                }
             }
         }
     }

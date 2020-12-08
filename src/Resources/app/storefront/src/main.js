@@ -1,16 +1,29 @@
 /* eslint-disable import/no-unresolved */
-
 import HttpClient from 'src/service/http-client.service';
+import PluginManager from 'src/plugin-system/plugin.manager';
 import { COOKIE_CONFIGURATION_UPDATE } from 'src/plugin/cookie/cookie-configuration.plugin';
+import ProductClickTracking from './plugin/productClickTracking.plugin';
+import Promotions from './plugin/promotions.plugin';
+
+
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a');
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button');
+PluginManager.register('Promotions', Promotions);
 
 const __superFunc = HttpClient.prototype._registerOnLoaded;
 HttpClient.prototype._registerOnLoaded = function (request, callback) {
     __superFunc.call(this, request, callback);
     request.addEventListener('loadend', () => {
-        const gtmPush = request.getResponseHeader('gtm-push');
+        let gtmPush = request.getResponseHeader('gtm-push');
+        if (gtmPush === 'null') {
+            gtmPush = null;
+        }
 
         if (gtmPush && window.dataLayer) {
-            window.dataLayer.push(JSON.parse(gtmPush));
+            const pushes = JSON.parse(gtmPush);
+            for (const key in pushes) {
+                window.dataLayer.push(JSON.parse(pushes[key]));
+            }
 
             if (window.gaRegisterClickTracking) {
                 window.gaRegisterClickTracking();
@@ -37,5 +50,4 @@ function eventCallback(updatedCookies) {
         window.googleTag = null;
     }
 }
-
 document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, eventCallback);
