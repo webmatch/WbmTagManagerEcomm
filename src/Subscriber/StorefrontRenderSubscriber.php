@@ -60,12 +60,11 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             if (array_key_exists($route, $modules)) {
                 $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)
                     ->renderDataLayer($route);
-                $dataLayer =   $dataLayer->getDataLayer($route);
+                $dataLayer = $dataLayer->getDataLayer($route);
             }
         }
 
         if (!$event->getRequest()->isXmlHttpRequest()) {
-
             $event->setParameter(
                 'wbmTagManagerConfig',
                 [
@@ -74,7 +73,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                     'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
                     'hasSWConsentSupport' => $this->modules->hasSWConsentSupport($salesChannelId),
                     'scriptTagAttributes' => $this->modules->getScriptTagAttributes($salesChannelId),
-                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId)
+                    'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId),
                 ]
             );
 

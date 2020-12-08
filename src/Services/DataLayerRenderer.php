@@ -150,10 +150,10 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
         foreach ($properties as $key => &$property) {
             $root = ($property['parent_id'] === null);
-            $onEvent = ($property['on_event'] === "1");
+            $onEvent = ($property['on_event'] === '1');
             $eventName = trim($property['event_name']);
             $subProperties = null;
-            if ((int)$property['child_count'] > 0) {
+            if ((int) $property['child_count'] > 0) {
                 $subProperties = $this->getChildrenList($property['id'], $module);
             }
             $value = $property['value'];
@@ -184,10 +184,10 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
             if ($root) {
                 $key = ($onEvent ? 'onEvent' : 'default');
-                $namedProperties[$key][$name] = $property;
                 if ($key === 'onEvent' && !empty($eventName)) {
                     $namedProperties[$key]['event'] = $eventName;
                 }
+                $namedProperties[$key][$name] = $property;
             } else {
                 $namedProperties[$name] = $property;
             }
@@ -198,7 +198,7 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
     private function castArrayValues(&$value, $key): void
     {
-        if (in_array($key, self::STRING_VALUES)) {
+        if (in_array($key, self::STRING_VALUES, true)) {
             return;
         }
 

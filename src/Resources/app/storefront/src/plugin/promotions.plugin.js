@@ -2,13 +2,12 @@ import Plugin from 'src/plugin-system/plugin.class';
 import DomAccess from 'src/helper/dom-access.helper';
 
 export default class Promotions extends Plugin {
-
     init() {
-        let self = this;
+        const self = this;
         let promotionObjects = false;
         try {
             promotionObjects = DomAccess.querySelectorAll(this.el, '[data-promotion]');
-        } catch(e) {
+        } catch (e) {
             // just no object found
         }
 
@@ -18,7 +17,7 @@ export default class Promotions extends Plugin {
 
         this.promotions = [];
 
-        promotionObjects.forEach(function (object) {
+        promotionObjects.forEach((object) => {
             const dataSet = JSON.parse(JSON.stringify(object.dataset));
 
             if (typeof dataSet.promotionId === 'undefined' && dataSet.promotionName === 'undefinded') {
@@ -27,7 +26,6 @@ export default class Promotions extends Plugin {
 
             self.addPromotion(dataSet);
             self.registerEvent(object, dataSet);
-
         });
 
         this.pushPromoView();
@@ -38,11 +36,11 @@ export default class Promotions extends Plugin {
         try {
             const promotionLinks = DomAccess.querySelectorAll(object, 'a');
 
-            promotionLinks.forEach(function (link) {
-                link.addEventListener('click', function (event) {
-                    self.onPromotionClicked(event, link, dataSet)
-                })
-            })
+            promotionLinks.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    self.onPromotionClicked(event, link, dataSet);
+                });
+            });
         } catch (e) {
             // just no object found
         }
@@ -52,32 +50,31 @@ export default class Promotions extends Plugin {
         event.preventDefault();
 
         dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
+            event: 'promotionClick',
+            ecommerce: {
+                promoClick: {
+                    promotions: [
                         {
-                            'id': dataSet.promotionId || '',
-                            'name': dataSet.promotionName || '',
-                            'creative': dataSet.promotionCreative || '',
-                            'position': dataSet.promotionPosition || ''
+                            id: dataSet.promotionId || '',
+                            name: dataSet.promotionName || '',
+                            creative: dataSet.promotionCreative || '',
+                            position: dataSet.promotionPosition || ''
                         }]
                 }
             },
-            'eventCallback': function () {
+            eventCallback: function () {
                 document.location = DomAccess.getAttribute(link, 'href');
             }
         });
-
     }
 
     addPromotion(dataSet) {
-        let promotion = {
+        const promotion = {
             id: dataSet.promotionId || '',
             name: dataSet.promotionName || '',
             creative: dataSet.promotionCreative || '',
             position: dataSet.promotionPosition || ''
-        }
+        };
 
         this.promotions.push(promotion);
     }
@@ -85,10 +82,10 @@ export default class Promotions extends Plugin {
     pushPromoView() {
         if (this.promotions.length > 0) {
             window.dataLayer.push({
-                'event': 'promotions',
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': this.promotions
+                event: 'promotions',
+                ecommerce: {
+                    promoView: {
+                        promotions: this.promotions
                     }
                 }
             });
