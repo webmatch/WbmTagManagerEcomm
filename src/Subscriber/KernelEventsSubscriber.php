@@ -67,6 +67,11 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $response->headers->clearCookie(self::COOKIE_NAME);
 
         $route = $event->getRequest()->attributes->get('_route');
+        $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
+        if ($dataLayer === null) {
+            return;
+        }
+
         $dataLayer = json_encode($this->dataLayerRenderer->getDataLayer($route));
 
         if ($response->isRedirect() && !empty($dataLayer)) {
