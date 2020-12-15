@@ -15,11 +15,4 @@ rm -rf WbmTagManagerEcomm WbmTagManagerEcomm-*.zip
 # Build new release
 mkdir -p WbmTagManagerEcomm
 composer install --no-dev -n -o -d WbmTagManagerEcomm
-zip -r WbmTagManagerEcomm-${commit}.zip WbmTagManagerEcomm \
---exclude="bin/*" \
---exclude=".travis.yml" \
---exclude="build.sh" \
---exclude=".eslintignore" \
---exclude="phpstan.neon.dist" \
---exclude="psalm.xml" \
---exclude="CHANGELOG.md"
+zip -r WbmTagManagerEcomm-${commit}.zip WbmTagManagerEcomm -x WbmTagManagerEcomm/bin WbmTagManagerEcomm/.travis.yml WbmTagManagerEcomm/build.sh WbmTagManagerEcomm/.eslintignore WbmTagManagerEcomm/phpstan.neon.dist WbmTagManagerEcomm/psalm.xml WbmTagManagerEcomm/.gitignore WbmTagManagerEcomm/.git/
