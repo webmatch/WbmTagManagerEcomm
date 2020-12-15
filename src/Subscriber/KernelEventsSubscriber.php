@@ -46,7 +46,8 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
     public function getDataLayerForXmlHttpRequest(ControllerEvent $event): void
     {
-        $isActive = !empty($this->modules->getContainerId()) && $this->modules->isActive();
+        $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
+        $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
         if ($isActive && !$event->getRequest()->cookies->get(self::COOKIE_NAME)) {
             $modules = $this->modules->getModules();
@@ -68,13 +69,11 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
         $route = $event->getRequest()->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
-        if ($dataLayer === null) {
-            return;
+        if ($dataLayer !== null) {
+            $dataLayer = json_encode($dataLayer);
         }
 
-        $dataLayer = json_encode($this->dataLayerRenderer->getDataLayer($route));
-
-        if ($response->isRedirect() && !empty($dataLayer)) {
+        if (!empty($dataLayer) && $response->isRedirect()) {
             $response->headers->setCookie(
                 new Cookie(
                     self::COOKIE_NAME,
