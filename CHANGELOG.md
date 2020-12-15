@@ -1,3 +1,7 @@
+# 1.3.0
+ * Feature: adding dutch snippetfiles (thx to @runelaenen)
+ * Bugfix: correct value for impression on search pages
+
 # 1.2.2
  * Bugfix: addToCart & removeFromCart now pushes event again
 
