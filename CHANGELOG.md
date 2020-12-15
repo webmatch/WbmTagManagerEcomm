@@ -1,3 +1,6 @@
+# 1.2.2
+ * Bugfix: addToCart & removeFromCart now pushes event again
+
 # 1.2.1
  * Bugfix: set default value for column eventname
  * Bugfix: use 'gtm.Load' for eventListener instead of DOMContentLoaded
