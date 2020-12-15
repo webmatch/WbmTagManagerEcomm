@@ -1,0 +1,13 @@
+{
+    "wbm-tagmanager": {
+        "properties": {
+            "title": "Data Layer Attributen",
+            "modulesButton": "Modules",
+            "nameLabel": "Naam",
+            "valueLabel": "Waarde",
+            "onEventLabel": "Push als apart event",
+            "eventNameLabel": "Eventnaam",
+            "saveButton": "Opslaan"
+        }
+    }
+}

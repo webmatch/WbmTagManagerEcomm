@@ -44,6 +44,9 @@
         <service id="Wbm\TagManagerEcomm\Resources\snippet\en_GB\SnippetFile_en_GB">
             <tag name="shopware.snippet.file" priority="100"/>
         </service>
+        <service id="Wbm\TagManagerEcomm\Resources\snippet\nl_NL\SnippetFile_nl_NL">
+            <tag name="shopware.snippet.file" priority="100"/>
+        </service>
 
         <service id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider" decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
             <argument type="service" id="Wbm\TagManagerEcomm\Cookie\CustomCookieProvider.inner" />
