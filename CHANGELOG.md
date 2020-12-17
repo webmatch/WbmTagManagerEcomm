@@ -1,3 +1,7 @@
+# 1.3.1
+ * Bugfix: use window load as eventListener as it is the same as 'gtm.load'
+ * Bugfix: correct undefined impressions in product click tracking
+
 # 1.3.0
  * Feature: adding dutch snippetfiles (thx to @runelaenen)
  * Bugfix: correct value for impression on search pages
