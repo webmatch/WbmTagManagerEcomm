@@ -39,14 +39,13 @@ export default class ProductClickTracking extends Plugin {
     }
 
     onProductClicked(event) {
-        const self = this;
-        if (DomAccess.hasAttribute(self.el, 'href')) {
+        if (DomAccess.hasAttribute(this.el, 'href')) {
             event.preventDefault();
         }
         try {
             this.setImpressions();
 
-            const parent = self.el.closest('.product-box');
+            const parent = this.el.closest('.product-box');
             const inputField = DomAccess.querySelector(parent, '[itemprop="mpn"]');
             const productNo = DomAccess.getAttribute(inputField, 'content');
             const product = this.impressions.find((value, index) => {
