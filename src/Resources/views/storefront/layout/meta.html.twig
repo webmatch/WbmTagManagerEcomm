@@ -32,7 +32,7 @@
 
             {% endverbatim %}{% if onEvent %}{% verbatim %}
             var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
-            document.addEventListener('gtm.Load', function() {
+            window.addEventListener('load', function() {
                 window.dataLayer.push(onEventDataLayer);
             });
             {% endverbatim %}{% endif %}
