@@ -33,7 +33,7 @@ export default class ProductClickTracking extends Plugin {
             }
         }
 
-        if (this.impressions === null) {
+        if (this.impressions === null || this.impressions.length === 0) {
             throw new InvalidImpressionsError('no impressions found');
         }
     }
