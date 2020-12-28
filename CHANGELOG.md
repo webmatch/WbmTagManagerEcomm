@@ -1,3 +1,6 @@
+# 1.3.2
+ * Bugfix: add condition for empty impressions array
+
 # 1.3.1
  * Bugfix: use window load as eventListener as it is the same as 'gtm.load'
  * Bugfix: correct undefined impressions in product click tracking
