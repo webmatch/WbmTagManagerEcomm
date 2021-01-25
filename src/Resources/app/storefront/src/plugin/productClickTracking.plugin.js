@@ -19,7 +19,7 @@ export default class ProductClickTracking extends Plugin {
     }
 
     setImpressions() {
-        let dataLayer = [
+        const dataLayer = [
             window.dataLayer
         ];
         if (typeof onEventDataLayer !== 'undefined') {
@@ -65,7 +65,7 @@ export default class ProductClickTracking extends Plugin {
                 event: 'productClick',
                 ecommerce: {
                     click: {
-                        actionField: {list: product.list},
+                        actionField: { list: product.list },
                         products: [product]
                     }
                 }
@@ -83,6 +83,6 @@ export default class ProductClickTracking extends Plugin {
 class InvalidImpressionsError extends Error {
     constructor(message) {
         super(message);
-        this.name = "InvalidImpressionsError";
+        this.name = 'InvalidImpressionsError';
     }
 }
