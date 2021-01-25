@@ -1,0 +1,6 @@
+{% sw_extends '@Storefront/storefront/component/product/card/meta.html.twig' %}
+
+{% block component_product_box_rich_snippets_inner %}
+    {{ parent() }}
+    <meta itemprop="productNumber" content="{{ product.productNumber }}"/>
+{% endblock %}

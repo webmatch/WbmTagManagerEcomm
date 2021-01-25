@@ -5,6 +5,9 @@ export default class ProductClickTracking extends Plugin {
     impressions = null;
 
     init() {
+        if (window.gaRegisterClickTracking !== true) {
+            return;
+        }
         this.registerEvents();
     }
 
@@ -25,10 +28,12 @@ export default class ProductClickTracking extends Plugin {
 
         if (dataLayer) {
             for (let i = 0; i < dataLayer.length; i++) {
-                const layer = dataLayer[i];
+                for (let j = 0; j < dataLayer[i].length; j++) {
+                    const layer = dataLayer[i][j];
 
-                if (layer.ecommerce && layer.ecommerce.impressions) {
-                    this.impressions = layer.ecommerce.impressions;
+                    if (layer.ecommerce && layer.ecommerce.impressions) {
+                        this.impressions = layer.ecommerce.impressions;
+                    }
                 }
             }
         }
@@ -46,7 +51,7 @@ export default class ProductClickTracking extends Plugin {
             this.setImpressions();
 
             const parent = this.el.closest('.product-box');
-            const inputField = DomAccess.querySelector(parent, '[itemprop="mpn"]');
+            const inputField = DomAccess.querySelector(parent, '[itemprop="productnumber"]');
             const productNo = DomAccess.getAttribute(inputField, 'content');
             const product = this.impressions.find((value, index) => {
                 return value.id === productNo;

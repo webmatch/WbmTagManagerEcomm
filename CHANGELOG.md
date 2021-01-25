@@ -1,3 +1,6 @@
+# 1.3.3
+ * Bugfix: fix option for product click tracking
+
 # 1.3.2
  * Bugfix: add condition for empty impressions array
 
