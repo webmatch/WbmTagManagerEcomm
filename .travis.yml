@@ -39,7 +39,6 @@ before_script:
   - echo APP_SECRET=8583a6ff63c5894a3195331701749943 >> .env
   - echo APP_URL=http://localhost >> .env
   - echo DATABASE_URL=mysql://travis:@127.0.0.1:3306/shopware >> .env
-  - composer install --no-dev --no-progress --no-suggest --ignore-platform-reqs
   - mv ${TRAVIS_BUILD_DIR} ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
   - php ${SHOPWARE_DIRECTORY}/bin/console plugin:refresh
   - php ${SHOPWARE_DIRECTORY}/bin/console plugin:install -a ${PLUGIN_NAME}
