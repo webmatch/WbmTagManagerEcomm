@@ -18,47 +18,7 @@
         {% if wbmTagManagerConfig.gtmContainerId and dataLayer and wbmTagManagerConfig.isTrackingProductClicks %}
             <script type="text/javascript">
                 {% block wbm_base_tag_manager_click_tracking_script_inline %}
-                    window.gaRegisterClickTracking = function() {
-                        var i, j,
-                            impressions = [],
-                            listings = document.querySelectorAll('.cms-element-product-listing .cms-listing-col');
-
-                        if (window.dataLayer) {
-                            for (i = 0; i < window.dataLayer.length; i++) {
-                                var layer = window.dataLayer[i];
-
-                                if (layer.ecommerce && layer.ecommerce.impressions) {
-                                    impressions = layer.ecommerce.impressions;
-                                }
-                            }
-                        }
-
-                        if (impressions.length) {
-                            for (i = 0; i < listings.length; i++) {
-                                if (impressions[i]) {
-                                    (function(){
-                                        var productLinks = listings[i].querySelectorAll('a'),
-                                            clicked = impressions[i];
-
-                                        for (j = 0; j < productLinks.length; j++) {
-                                            productLinks[j].addEventListener('click', function() {
-                                                window.dataLayer.push({
-                                                    'event': 'productClick',
-                                                    'ecommerce': {
-                                                        'click': {
-                                                            'products': [clicked]
-                                                        }
-                                                    }
-                                                });
-                                            }, { once: true });
-                                        }
-                                    })();
-                                }
-                            }
-                        }
-                    };
-
-                    window.gaRegisterClickTracking();
+                    window.gaRegisterClickTracking = true;
                 {% endblock %}
             </script>
         {% endif %}
