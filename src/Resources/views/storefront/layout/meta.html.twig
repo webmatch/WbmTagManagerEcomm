@@ -11,6 +11,7 @@
             }
 
             window.dataLayer = window.dataLayer || [];
+            let gtmIsTrackingProductClicks = Boolean({% endverbatim %}{{ wbmTagManagerConfig.isTrackingProductClicks|raw }}{% verbatim %});
             var gtmContainerId = '{% endverbatim %}{{ wbmTagManagerConfig.gtmContainerId|raw }}{% verbatim %}';
             var gtmCookieSet = getCookie('{% endverbatim %}{{ wbmTagManagerConfig.wbmCookieEnabledName }}{% verbatim %}');
             var hasSWConsentSupport = Boolean(Number({% endverbatim %}{{ wbmTagManagerConfig.hasSWConsentSupport }}{% verbatim %}));

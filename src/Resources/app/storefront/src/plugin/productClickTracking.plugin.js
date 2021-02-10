@@ -5,7 +5,7 @@ export default class ProductClickTracking extends Plugin {
     impressions = null;
 
     init() {
-        if (window.gaRegisterClickTracking !== true) {
+        if (gtmIsTrackingProductClicks !== true) {
             return;
         }
         this.registerEvents();
@@ -50,8 +50,8 @@ export default class ProductClickTracking extends Plugin {
         try {
             this.setImpressions();
 
-            const parent = this.el.closest('.product-box');
-            const inputField = DomAccess.querySelector(parent, '[itemprop="productnumber"]');
+            const parent = this.el.closest(this.options.parent);
+            const inputField = DomAccess.querySelector(parent, '[itemprop="productNumber"]');
             const productNo = DomAccess.getAttribute(inputField, 'content');
             const product = this.impressions.find((value, index) => {
                 return value.id === productNo;

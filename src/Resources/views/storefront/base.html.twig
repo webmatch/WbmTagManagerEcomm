@@ -11,16 +11,3 @@
     {% endblock %}
     {{ parent() }}
 {% endblock %}
-
-{% block base_body_script %}
-    {{ parent() }}
-    {% block wbm_base_tag_manager_click_tracking_script %}
-        {% if wbmTagManagerConfig.gtmContainerId and dataLayer and wbmTagManagerConfig.isTrackingProductClicks %}
-            <script type="text/javascript">
-                {% block wbm_base_tag_manager_click_tracking_script_inline %}
-                    window.gaRegisterClickTracking = true;
-                {% endblock %}
-            </script>
-        {% endif %}
-    {% endblock %}
-{% endblock %}
