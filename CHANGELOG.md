@@ -1,3 +1,6 @@
+# 1.3.5
+* Bugfix: correct typo in product click tracking
+
 # 1.3.4
  * Bugfix: optimize value for coupon
 
