@@ -24,11 +24,6 @@ HttpClient.prototype._registerOnLoaded = function (request, callback) {
             for (const key in pushes) {
                 window.dataLayer.push(JSON.parse(pushes[key]));
             }
-
-            //@todo: add itemprop to cart-item
-            if (gtmIsTrackingProductClicks === true) {
-                PluginManager.initializePlugin('ProductClickTracking', '.cart-item-product a', {'parent': '.cart-item-product'});
-            }
         }
     });
 };
