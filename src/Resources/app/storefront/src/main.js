@@ -6,8 +6,8 @@ import ProductClickTracking from './plugin/productClickTracking.plugin';
 import Promotions from './plugin/promotions.plugin';
 
 
-PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a');
-PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button');
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a', {'parent': '.product-box'});
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button', {'parent': '.product-box'});
 PluginManager.register('Promotions', Promotions);
 
 const __superFunc = HttpClient.prototype._registerOnLoaded;
@@ -23,10 +23,6 @@ HttpClient.prototype._registerOnLoaded = function (request, callback) {
             const pushes = JSON.parse(gtmPush);
             for (const key in pushes) {
                 window.dataLayer.push(JSON.parse(pushes[key]));
-            }
-
-            if (window.gaRegisterClickTracking) {
-                window.gaRegisterClickTracking();
             }
         }
     });
