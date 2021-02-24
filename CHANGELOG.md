@@ -1,5 +1,6 @@
 # 1.3.6
 * rename itemprop `productNumber` to `sku`
+* add area to promotionClick tracking
 
 # 1.3.5
 * Bugfix: correct typo in product click tracking
