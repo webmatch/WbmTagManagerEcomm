@@ -51,7 +51,7 @@ export default class ProductClickTracking extends Plugin {
             this.setImpressions();
 
             const parent = this.el.closest(this.options.parent);
-            const inputField = DomAccess.querySelector(parent, '[itemprop="productNumber"]');
+            const inputField = DomAccess.querySelector(parent, '[itemprop="sku"]');
             const productNo = DomAccess.getAttribute(inputField, 'content');
             const product = this.impressions.find((value, index) => {
                 return value.id === productNo;
