@@ -9,3 +9,5 @@ src/Migration/Migration1611594584AHCustomFix.php
 src/Migration/properties.1607407900.sql
 src/Migration/properties.1607958778.sql
 src/Migration/properties.1608035360.sql
+
+src/Resources/views/storefront/element

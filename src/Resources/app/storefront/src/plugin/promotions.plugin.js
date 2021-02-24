@@ -18,25 +18,24 @@ export default class Promotions extends Plugin {
         this.promotions = [];
 
         promotionObjects.forEach((object) => {
-            const dataSet = JSON.parse(JSON.stringify(object.dataset));
-
-            if (typeof dataSet.promotionId === 'undefined' && dataSet.promotionName === 'undefinded') {
-                return;
-            }
-
-            self.addPromotion(dataSet);
-            self.registerEvent(object, dataSet);
+            self.registerEvent(object);
         });
 
         this.pushPromoView();
     }
 
-    registerEvent(object, dataSet) {
+    registerEvent(object) {
         const self = this;
         try {
-            const promotionLinks = DomAccess.querySelectorAll(object, 'a');
+            const promotionLinks = DomAccess.querySelectorAll(object, 'a, area');
 
             promotionLinks.forEach((link) => {
+                const dataSet = JSON.parse(JSON.stringify(link.dataset));
+                if (typeof dataSet.promotionId === 'undefined' && dataSet.promotionName === 'undefinded') {
+                    return;
+                }
+                self.addPromotion(dataSet);
+
                 link.addEventListener('click', (event) => {
                     self.onPromotionClicked(event, link, dataSet);
                 });

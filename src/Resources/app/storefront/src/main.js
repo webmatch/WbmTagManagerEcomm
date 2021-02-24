@@ -6,8 +6,8 @@ import ProductClickTracking from './plugin/productClickTracking.plugin';
 import Promotions from './plugin/promotions.plugin';
 
 
-PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a', {'parent': '.product-box'});
-PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button', {'parent': '.product-box'});
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box a', { parent: '.product-box' });
+PluginManager.register('ProductClickTracking', ProductClickTracking, '.product-box button', { parent: '.product-box' });
 PluginManager.register('Promotions', Promotions);
 
 const __superFunc = HttpClient.prototype._registerOnLoaded;
