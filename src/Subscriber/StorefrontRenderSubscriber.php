@@ -73,6 +73,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                     'wbmCookieEnabledName' => CustomCookieProvider::WBM_GTM_ENABLED_COOKIE_NAME,
                     'hasSWConsentSupport' => $this->modules->hasSWConsentSupport($salesChannelId),
                     'scriptTagAttributes' => $this->modules->getScriptTagAttributes($salesChannelId),
+                    'dataLayerScriptTagAttributes' => $this->modules->getDataLayerScriptTagAttributes($salesChannelId),
                     'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId),
                 ]
             );

@@ -2,6 +2,19 @@
 
 {% block layout_head_meta_tags_charset %}
     {{ parent() }}
+    {% block wbm_layout_head_tag_manager_data_layer_push %}
+        {% if dataLayer %}<script {{ wbmTagManagerConfig.dataLayerScriptTagAttributes|raw }}>{% verbatim %}
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
+
+            {% endverbatim %}{% if onEvent %}{% verbatim %}
+            var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
+            window.addEventListener('load', function() {
+                window.dataLayer.push(onEventDataLayer);
+            });
+            {% endverbatim %}{% endif %}
+        </script>{% endif %}
+    {% endblock %}
     {% block wbm_layout_head_tag_manager_snippet %}
         {% if wbmTagManagerConfig.gtmContainerId %}<!-- WbmTagManagerEcomm Head Snippet Start -->
         <script id="wbmTagManger" {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>{% verbatim %}
@@ -26,17 +39,5 @@
                 googleTag = null;
             }{% endverbatim %}
         </script><!-- WbmTagManagerEcomm Head Snippet End -->{% endif %}
-    {% endblock %}
-    {% block wbm_layout_head_tag_manager_data_layer_push %}
-        {% if dataLayer %}<script {{ wbmTagManagerConfig.scriptTagAttributes|raw }}>{% verbatim %}
-            window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
-
-            {% endverbatim %}{% if onEvent %}{% verbatim %}
-            var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
-            window.addEventListener('load', function() {
-                window.dataLayer.push(onEventDataLayer);
-            });
-            {% endverbatim %}{% endif %}
-        </script>{% endif %}
     {% endblock %}
 {% endblock %}
