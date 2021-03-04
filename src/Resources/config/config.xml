@@ -68,7 +68,7 @@
             <name>scriptTagAttributes</name>
             <defaultValue>type="text/javascript"</defaultValue>
             <copyable>true</copyable>
-            <label>Script-Tag atttributes (optional/expert)</label>
+            <label>Script-Tag attributes (optional/expert)</label>
             <label lang="de-DE">Script-Tag Attribute (optional/expert)</label>
             <value/>
             <helpText><![CDATA[
@@ -85,6 +85,12 @@
                 Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
                 ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
             ]]></helpText>
+        </input-field>
+        <input-field type="bool">
+            <name>removeAtDataLayerTag</name>
+            <defaultValue>false</defaultValue>
+            <label>Don't set attributes to datalayer script-tag</label>
+            <label lang="de-DE">Setze diese Attribute nicht an das dataLayer Script-Tag</label>
         </input-field>
     </card>
 

@@ -102,6 +102,18 @@ class DataLayerModules implements DataLayerModulesInterface
         ) ?: '';
     }
 
+    public function getDataLayerScriptTagAttributes(?string $salesChannelId = null): string
+    {
+        $removeAtDataLayerTag = $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.removeAtDataLayerTag',
+            $salesChannelId
+        );
+
+        return ($removeAtDataLayerTag !== true)
+            ? $this->getScriptTagAttributes($salesChannelId)
+            : '';
+    }
+
     public function getExtendedURLParameter(?string $salesChannelId = null): string
     {
         return $this->systemConfigService->get(
