@@ -1,4 +1,4 @@
-# 1.3.7.
+# 1.4.0
 * add config option to remove script tags attribute for dataLayer
 
 # 1.3.6
