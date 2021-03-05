@@ -33,7 +33,8 @@ install:
 
 before_script:
     - if [[ "$(php --version | grep -cim1 xdebug)" -ge 1 ]]; then phpenv config-rm xdebug.ini; fi
-    - git clone https://github.com/shopware/platform.git ${SHOPWARE_DIRECTORY} --branch ${SHOPWARE_VERSION}
+    - git clone https://github.com/shopware/production.git ${SHOPWARE_DIRECTORY} --branch ${SHOPWARE_VERSION}
+    - composer install
     - cd ${SHOPWARE_DIRECTORY}
     - echo APP_ENV=prod >> .env
     - echo APP_SECRET=8583a6ff63c5894a3195331701749943 >> .env
