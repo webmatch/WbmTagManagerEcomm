@@ -1,0 +1,10 @@
+before_script:
+    - ./build.sh
+ 
+deploy:
+    provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: WbmTagManagerEcomm*.zip
+    on:
+        tags: true
