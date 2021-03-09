@@ -4,6 +4,10 @@
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_data_layer_push %}
         {% if dataLayer %}<script {{ wbmTagManagerConfig.dataLayerScriptTagAttributes|raw }}>{% verbatim %}
+            let gtmIsTrackingProductClicks = Boolean({% endverbatim %}{{ wbmTagManagerConfig.isTrackingProductClicks|raw }}{% verbatim %});
+            var gtmContainerId = '{% endverbatim %}{{ wbmTagManagerConfig.gtmContainerId|raw }}{% verbatim %}';
+            var hasSWConsentSupport = Boolean(Number({% endverbatim %}{{ wbmTagManagerConfig.hasSWConsentSupport }}{% verbatim %}));
+
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
 
@@ -23,11 +27,7 @@
                 return cookieMatch && decodeURI(cookieMatch[1]);
             }
 
-            window.dataLayer = window.dataLayer || [];
-            let gtmIsTrackingProductClicks = Boolean({% endverbatim %}{{ wbmTagManagerConfig.isTrackingProductClicks|raw }}{% verbatim %});
-            var gtmContainerId = '{% endverbatim %}{{ wbmTagManagerConfig.gtmContainerId|raw }}{% verbatim %}';
             var gtmCookieSet = getCookie('{% endverbatim %}{{ wbmTagManagerConfig.wbmCookieEnabledName }}{% verbatim %}');
-            var hasSWConsentSupport = Boolean(Number({% endverbatim %}{{ wbmTagManagerConfig.hasSWConsentSupport }}{% verbatim %}));
             var googleTag = function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'{% endverbatim %}{{ wbmTagManagerConfig.extendedUrlParameter|trim|raw }}{% verbatim %}';f.parentNode.insertBefore(j,f);};
 
             if (hasSWConsentSupport && gtmCookieSet === null) {

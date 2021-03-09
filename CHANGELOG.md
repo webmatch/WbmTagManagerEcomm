@@ -1,3 +1,6 @@
+# 1.4.1
+* prevent error message when external consent isn't initialized
+
 # 1.4.0
 * add config option to remove script tags attribute for dataLayer
 
