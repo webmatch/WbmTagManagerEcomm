@@ -3,11 +3,10 @@
 {% block layout_head_meta_tags_charset %}
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_data_layer_push %}
+        <script>
+            let gtmIsTrackingProductClicks = Boolean({{ wbmTagManagerConfig.isTrackingProductClicks|raw }}), gtmContainerId = '{{ wbmTagManagerConfig.gtmContainerId|raw }}', hasSWConsentSupport = Boolean(Number({{ wbmTagManagerConfig.hasSWConsentSupport }}))
+        </script>
         {% if dataLayer %}<script {{ wbmTagManagerConfig.dataLayerScriptTagAttributes|raw }}>{% verbatim %}
-            let gtmIsTrackingProductClicks = Boolean({% endverbatim %}{{ wbmTagManagerConfig.isTrackingProductClicks|raw }}{% verbatim %});
-            var gtmContainerId = '{% endverbatim %}{{ wbmTagManagerConfig.gtmContainerId|raw }}{% verbatim %}';
-            var hasSWConsentSupport = Boolean(Number({% endverbatim %}{{ wbmTagManagerConfig.hasSWConsentSupport }}{% verbatim %}));
-
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({% endverbatim %}{{ dataLayer|raw }}{% verbatim %});
 
