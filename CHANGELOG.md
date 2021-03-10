@@ -1,3 +1,6 @@
+# 1.4.2
+* prevent js-error according to missing js variable
+
 # 1.4.1
 * prevent error message when external consent isn't initialized
 
