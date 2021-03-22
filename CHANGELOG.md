@@ -1,3 +1,6 @@
+# 1.4.3
+* fix product click
+
 # 1.4.2
 * prevent js-error according to missing js variable
 

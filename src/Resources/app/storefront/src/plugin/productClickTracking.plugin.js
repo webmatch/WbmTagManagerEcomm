@@ -58,7 +58,7 @@ export default class ProductClickTracking extends Plugin {
             });
 
             if (product === undefined) {
-                return;
+                throw new InvalidImpressionsError('product not found in impressions');
             }
 
             window.dataLayer.push({
