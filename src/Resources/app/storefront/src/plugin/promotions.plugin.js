@@ -3,15 +3,16 @@ import DomAccess from 'src/helper/dom-access.helper';
 
 export default class Promotions extends Plugin {
     init() {
+        if (!window.wbmScriptIsSet) {
+            return;
+        }
+
         const self = this;
         let promotionObjects = false;
         try {
             promotionObjects = DomAccess.querySelectorAll(this.el, '[data-promotion]');
         } catch (e) {
             // just no object found
-        }
-
-        if (!promotionObjects) {
             return;
         }
 

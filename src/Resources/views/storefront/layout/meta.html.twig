@@ -4,7 +4,8 @@
     {{ parent() }}
     {% block wbm_layout_head_tag_manager_data_layer_push %}
         <script>
-            let gtmIsTrackingProductClicks = Boolean({{ wbmTagManagerConfig.isTrackingProductClicks|raw }}), gtmContainerId = '{{ wbmTagManagerConfig.gtmContainerId|raw }}', hasSWConsentSupport = Boolean(Number({{ wbmTagManagerConfig.hasSWConsentSupport }}))
+            let gtmIsTrackingProductClicks = Boolean({{ wbmTagManagerConfig.isTrackingProductClicks|raw }}), gtmContainerId = '{{ wbmTagManagerConfig.gtmContainerId|raw }}', hasSWConsentSupport = Boolean(Number({{ wbmTagManagerConfig.hasSWConsentSupport }}));
+            window.wbmScriptIsSet = false;
         </script>
         {% if dataLayer %}<script {{ wbmTagManagerConfig.dataLayerScriptTagAttributes|raw }}>{% verbatim %}
             window.dataLayer = window.dataLayer || [];
@@ -34,6 +35,7 @@
                 window.wbmScriptIsSet = false;
                 window.googleTag = googleTag;
             } else {
+                window.wbmScriptIsSet = true;
                 googleTag(window, document, 'script', 'dataLayer', gtmContainerId);
                 googleTag = null;
             }{% endverbatim %}

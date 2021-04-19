@@ -1,3 +1,6 @@
+# 1.4.4
+* fix: do not handle promotions without accepted cookies
+
 # 1.4.3
 * fix product click
 
