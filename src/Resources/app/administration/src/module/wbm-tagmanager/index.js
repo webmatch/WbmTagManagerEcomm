@@ -32,6 +32,7 @@ Module.register('wbm-tagmanager', {
         color: '#00acd2',
         path: 'wbm.tagmanager.tabs',
         icon: 'default-text-code',
-        position: 100
+        parent: 'sw-marketing',
+        position: 1000
     }]
 });
