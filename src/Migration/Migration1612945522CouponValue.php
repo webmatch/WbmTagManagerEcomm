@@ -21,7 +21,7 @@ class Migration1612945522CouponValue extends MigrationStep
                AND `value` = '{% set promotions = \'\' %}{% for lineItem in page.cart.data.get(\'promotions\') %}{% set promotions = promotions ~ lineItem.payload.code %}{% if not loop.last %}{% set promotions = promotions ~ \',\' %}{% endif %}{% endfor %}{{ promotions }}'
         ";
 
-        $connection->exec($sql);
+        $connection->executeStatement($sql);
     }
 
     public function updateDestructive(Connection $connection): void

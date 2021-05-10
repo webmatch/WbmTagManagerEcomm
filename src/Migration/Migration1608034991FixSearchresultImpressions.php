@@ -14,7 +14,7 @@ class Migration1608034991FixSearchresultImpressions extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->exec('
+        $connection->executeStatement('
             UPDATE `wbm_data_layer_properties`
                SET `value` = \'product in page.listing.elements\'
              WHERE `value` = \'product in page.searchResult\'
