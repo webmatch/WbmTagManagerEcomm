@@ -1,3 +1,7 @@
+# 1.5.0
+* fix statements in migrations
+* move menuentry below marketing
+
 # 1.4.4
 * fix: do not handle promotions without accepted cookies
 
