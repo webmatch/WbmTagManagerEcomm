@@ -14,7 +14,7 @@ class Migration1607952506EventnameDefault extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeStatement(
+        $connection->exec(
             'ALTER TABLE wbm_data_layer_properties ALTER COLUMN event_name SET DEFAULT \'\';'
         );
     }
