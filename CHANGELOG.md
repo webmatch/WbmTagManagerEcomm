@@ -1,3 +1,6 @@
+# 1.5.2
+* add migration to correct unit prices for price ranges
+
 # 1.5.1
 * fix statements in migrations for SW<6.4
 
