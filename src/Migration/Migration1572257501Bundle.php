@@ -14,7 +14,7 @@ class Migration1572257501Bundle extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        $connection->executeStatement('
+        $connection->exec('
             CREATE TABLE IF NOT EXISTS `wbm_data_layer_modules` (
               `id` BINARY(16) NOT NULL,
               `name` VARCHAR(255) NOT NULL,
@@ -27,7 +27,7 @@ class Migration1572257501Bundle extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $connection->executeStatement('
+        $connection->exec('
             CREATE TABLE IF NOT EXISTS `wbm_data_layer_properties` (
               `id` BINARY(16) NOT NULL,
               `module` VARCHAR(255) NOT NULL,
@@ -45,10 +45,10 @@ class Migration1572257501Bundle extends MigrationStep
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
 
-        $connection->executeStatement(file_get_contents(__DIR__ . '/layers.default.sql'));
-        $connection->executeStatement(file_get_contents(__DIR__ . '/properties.default.sql'));
+        $connection->exec(file_get_contents(__DIR__ . '/layers.default.sql'));
+        $connection->exec(file_get_contents(__DIR__ . '/properties.default.sql'));
 
-        $connection->executeStatement('
+        $connection->exec('
             ALTER TABLE `wbm_data_layer_properties`
               ADD CONSTRAINT `fk.wbm_data_layer_properties.parent_id` FOREIGN KEY (`parent_id`)
               REFERENCES `wbm_data_layer_properties` (`id`) ON DELETE CASCADE;

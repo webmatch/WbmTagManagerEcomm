@@ -1,3 +1,6 @@
+# 1.5.1
+* fix statements in migrations for SW<6.4
+
 # 1.5.0
 * fix statements in migrations
 * move menuentry below marketing
