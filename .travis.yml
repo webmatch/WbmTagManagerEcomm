@@ -46,8 +46,8 @@ before_script:
     - php ${SHOPWARE_DIRECTORY}/bin/console plugin:install -a ${PLUGIN_NAME}
     - cd ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
 
-#script:
-#    - composer test
+script:
+    - composer test
 
 after_success:
     - ./build.sh
