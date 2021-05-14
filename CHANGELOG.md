@@ -1,3 +1,6 @@
+# 1.5.4
+* compatibility to PHP 7.2
+
 # 1.5.3
 * remove control character before decoding to json
 

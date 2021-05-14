@@ -53,14 +53,17 @@ class DataLayerRenderer implements DataLayerRendererInterface
 
             $dataLayer = $template->render($this->getVariables($route));
             $dataLayer = preg_replace('/[[:cntrl:]]/', '', $dataLayer);
-            $dataLayer = json_decode($dataLayer, true, 512, JSON_THROW_ON_ERROR);
+            $dataLayer = json_decode($dataLayer, true);
+            if (json_last_error() > 0) {
+                throw new \Exception(json_last_error_msg(), 1620985321);
+            }
+
+            if (!empty($dataLayer)) {
+                array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
+            }
         } catch (\Exception $e) {
             $dataLayer = [];
             $dataLayer['default'] = json_encode(['error' => $e->getMessage()]);
-        }
-
-        if (!empty($dataLayer)) {
-            array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
         }
 
         if (!empty($dataLayer['default'])) {
