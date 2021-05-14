@@ -52,11 +52,12 @@ class DataLayerRenderer implements DataLayerRendererInterface
             $template = $this->twig->createTemplate($dataLayer);
 
             $dataLayer = $template->render($this->getVariables($route));
+            $dataLayer = preg_replace('/[[:cntrl:]]/', '', $dataLayer);
+            $dataLayer = json_decode($dataLayer, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Exception $e) {
-            $dataLayer = json_encode(['error' => $e->getMessage()]);
+            $dataLayer = [];
+            $dataLayer['default'] = json_encode(['error' => $e->getMessage()]);
         }
-
-        $dataLayer = json_decode($dataLayer, true);
 
         if (!empty($dataLayer)) {
             array_walk_recursive($dataLayer, [$this, 'castArrayValues']);
