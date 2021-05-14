@@ -1,3 +1,6 @@
+# 1.5.3
+* remove control character before decoding to json
+
 # 1.5.2
 * add migration to correct unit prices for price ranges
 
