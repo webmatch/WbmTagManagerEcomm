@@ -309,7 +309,7 @@ class TagManagerExtension extends AbstractExtension
             $languageId = $masterRequest
                 ->headers->get(PlatformRequest::HEADER_LANGUAGE_ID);
             if ((float)substr(Kernel::SHOPWARE_FALLBACK_VERSION, 0,3) >= 6.4 ) {
-                $parameters = new Shopware\Core\System\SalesChannel\Context\SalesChannelContextServiceParameters(
+                $parameters = new \Shopware\Core\System\SalesChannel\Context\SalesChannelContextServiceParameters(
                     $salesChannelId,
                     $contextToken,
                     $languageId
