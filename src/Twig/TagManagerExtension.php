@@ -9,6 +9,7 @@ use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\SalesChannel\CartService;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Shopware\Core\Kernel;
 use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SalesChannel\Context\SalesChannelContextServiceInterface;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -307,7 +308,20 @@ class TagManagerExtension extends AbstractExtension
                 ->headers->get(PlatformRequest::HEADER_CONTEXT_TOKEN);
             $languageId = $masterRequest
                 ->headers->get(PlatformRequest::HEADER_LANGUAGE_ID);
-            $twigContext['context'] = $this->salesChannelContextService->get($salesChannelId, $contextToken, $languageId);
+            if ((float)substr(Kernel::SHOPWARE_FALLBACK_VERSION, 0,3) >= 6.4 ) {
+                $parameters = new \Shopware\Core\System\SalesChannel\Context\SalesChannelContextServiceParameters(
+                    $salesChannelId,
+                    $contextToken,
+                    $languageId
+                );
+                $twigContext['context'] = $this->salesChannelContextService->get($parameters);
+            } else {
+                $twigContext['context'] = $this->salesChannelContextService->get(
+                    $salesChannelId,
+                    $contextToken,
+                    $languageId
+                );
+            }
         }
 
         return $twigContext['context'];

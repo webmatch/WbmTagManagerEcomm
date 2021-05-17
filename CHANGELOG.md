@@ -1,3 +1,6 @@
+# 1.6.0
+* compatibility for SW 6.4
+
 # 1.5.4
 * compatibility to PHP 7.2
 
