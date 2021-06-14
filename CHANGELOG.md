@@ -1,3 +1,9 @@
+# 2.0.0
+* reduce response header
+* use session as temporary storage instead of cookie
+* split large impressions in order not to exceed the analytics limit of 8kb
+  :exclamation: Attention, this may break functionality
+  
 # 1.6.0
 * compatibility for SW 6.4
 

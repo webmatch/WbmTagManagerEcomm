@@ -1,6 +1,7 @@
 .idea
 vendor
 phpstan.neon
+ToDos.txt
 
 src/Migration/Migration1607407900WbmTagManagerAHCustom.php
 src/Migration/Migration1607958778WbmTagManagerAHCustom2.php

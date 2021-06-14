@@ -7,6 +7,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Wbm\TagManagerEcomm\Cookie\CustomCookieProvider;
 use Wbm\TagManagerEcomm\Services\DataLayerModules;
 use Wbm\TagManagerEcomm\Services\DataLayerRenderer;
+use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class StorefrontRenderSubscriber implements EventSubscriberInterface
 {
@@ -46,15 +47,13 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $cookie = $event->getRequest()->cookies->get(KernelEventsSubscriber::COOKIE_NAME);
-
-        if ($cookie) {
+        $storedDatalayer = $event->getRequest()->getSession()->get(SessionUtility::ATTRIBUTE_NAME);
+        if ($storedDatalayer) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
-                $dataLayer = json_decode($cookie, true);
+                $dataLayer = json_decode($storedDatalayer, true);
             }
         } else {
             $parameters = $event->getParameters();
-
             $modules = $this->modules->getModules();
 
             if (array_key_exists($route, $modules)) {
@@ -63,6 +62,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                 $dataLayer = $dataLayer->getDataLayer($route);
             }
         }
+
 
         if (!$event->getRequest()->isXmlHttpRequest()) {
             $event->setParameter(
