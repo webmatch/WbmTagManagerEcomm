@@ -60,7 +60,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
     public function prependDataLayerToResponse(ResponseEvent $event): void
     {
-        $response = clone $event->getResponse();
+        $response = $event->getResponse();
         $request = $event->getRequest();
         $session = $request->getSession();
         $storedDatalayer = $session->get(SessionUtility::ATTRIBUTE_NAME);
