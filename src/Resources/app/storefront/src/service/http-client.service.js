@@ -6,6 +6,10 @@ const __superFunc = HttpClient.prototype._registerOnLoaded;
 HttpClient.prototype._registerOnLoaded = function (request, callback) {
     __superFunc.call(this, request, callback);
     request.addEventListener('loadend', () => {
+        if (!window.hasOwnProperty('dataLayer')) {
+            return;
+        }
+
         var response = request.responseText;
         var domParser = new DOMParser();
         var parsedResponse = domParser.parseFromString(response, 'text/html');

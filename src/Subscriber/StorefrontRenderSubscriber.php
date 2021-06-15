@@ -63,7 +63,6 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             }
         }
 
-
         if (!$event->getRequest()->isXmlHttpRequest()) {
             $event->setParameter(
                 'wbmTagManagerConfig',

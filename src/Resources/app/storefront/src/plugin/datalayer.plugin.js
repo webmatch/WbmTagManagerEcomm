@@ -1,32 +1,35 @@
 import Plugin from 'src/plugin-system/plugin.class';
 
 export default class WbmDataLayer extends Plugin {
+    static event = '';
 
     init() {
         // just because we need a init function
     }
 
     static push(dataLayer) {
-        if (!dataLayer.hasOwnProperty('ecommerce') && !dataLayer.ecommerce.hasOwnProperty('impressions')) {
+        if (!dataLayer.hasOwnProperty('ecommerce') ||
+            !dataLayer.ecommerce.hasOwnProperty('impressions') ||
+            !dataLayer.hasOwnProperty('event')
+        ) {
             window.dataLayer.push(dataLayer);
             return;
         }
 
+        WbmDataLayer.event = dataLayer.event;
         const size = (new TextEncoder().encode(JSON.stringify(dataLayer)).length) / 1024;
 
-        if (Math.floor(size) < 5) {
+        if (Math.floor(size) < 6) {
             window.dataLayer.push(dataLayer);
             return;
         }
 
-        console.log('have some impressions to split');
+        const impressions = dataLayer.ecommerce.impressions;
+        const ecommerce = dataLayer.ecommerce;
+        let subset = 1;
+        let newDataLayer = WbmDataLayer.createEmptyDataLayer(ecommerce, subset);
+        let splittedImpressions = [];
 
-        var impressions = dataLayer.ecommerce.impressions;
-        var ecommerce = dataLayer.ecommerce;
-        var subset = 1;
-        var newDataLayer = WbmDataLayer.createEmptyDataLayer(ecommerce, subset);
-
-        var splittedImpressions = [];
         for (var i = 1; i < impressions.length; i++) {
             splittedImpressions.push(impressions[i-1]);
 
@@ -42,14 +45,13 @@ export default class WbmDataLayer extends Plugin {
     }
 
     static pushSubset(dataLayer, splittedImpressions) {
-        console.log(dataLayer, splittedImpressions);
         dataLayer.ecommerce.impressions = splittedImpressions;
         window.dataLayer.push(dataLayer);
     }
 
     static createEmptyDataLayer(ecommerce, subset) {
-        var dataLayer = {};
-        dataLayer.event = 'impressions';
+        const dataLayer = {};
+        dataLayer.event = WbmDataLayer.event;
         dataLayer.ecommerce = ecommerce;
         dataLayer.ecommerce.subset = subset;
         dataLayer.ecommerce.impressions = [];
