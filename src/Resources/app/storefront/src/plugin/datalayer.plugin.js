@@ -4,7 +4,7 @@ export default class WbmDataLayer extends Plugin {
     static event = '';
 
     init() {
-        // just because we need a init function
+        // just because we need an init function
     }
 
     static push(dataLayer) {
@@ -19,7 +19,7 @@ export default class WbmDataLayer extends Plugin {
         WbmDataLayer.event = dataLayer.event;
         const size = (new TextEncoder().encode(JSON.stringify(dataLayer)).length) / 1024;
 
-        if (Math.floor(size) < 6) {
+        if (Math.ceil(size) < 6) {
             window.dataLayer.push(dataLayer);
             return;
         }

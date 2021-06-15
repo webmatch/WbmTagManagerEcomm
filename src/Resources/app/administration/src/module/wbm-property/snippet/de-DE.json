@@ -6,7 +6,7 @@
             "nameLabel": "Name",
             "valueLabel": "Wert",
             "onEventLabel": "Als separates Event pushen",
-            "onEventLabel-helpText": "Subtree als separates Event nach pageload pushen. Falls eine 'event'-Property auf der root exisitiert, wird dieses entfernt. 'impressions' wird gesplittet wenn 6kb überschritten werden. Hintergrund: das Analytics Datenlimit beträgt 8kb",
+            "onEventLabel-helpText": "Subtree als separates Event nach 'pageload' senden. Falls eine 'event'-Property auf der Rootebene exisitiert, wird dieses entfernt. 'impressions' wird gesplittet wenn 6kb überschritten werden. Hintergrund: das Analytics Datenlimit beträgt 8kb",
             "eventNameLabel": "Eventname",
             "saveButton": "Speichern"
         }
