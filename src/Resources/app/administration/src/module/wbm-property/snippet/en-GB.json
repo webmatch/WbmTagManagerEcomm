@@ -6,7 +6,7 @@
             "nameLabel": "Name",
             "valueLabel": "Value",
             "onEventLabel": "Push as separate event",
-            "onEventLabel-helpText": "Push subtree as separate event after page load. If there is any 'event'-property at the root level, it will be unset. 'ec: impressions' will be split when 6kb are exceeded. Reason: the Analytics data limit is 8kb.",
+            "onEventLabel-helpText": "Push subtree as separate event after page load. If there is any 'event'-property at the root level, it will be unset. 'impressions' will be split when 6kb are exceeded. Reason: the Analytics data limit is 8kb.",
             "eventNameLabel": "Eventname",
             "saveButton": "Save"
         }

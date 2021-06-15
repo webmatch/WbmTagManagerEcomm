@@ -30,7 +30,7 @@ export default class WbmDataLayer extends Plugin {
         let newDataLayer = WbmDataLayer.createEmptyDataLayer(ecommerce, subset);
         let splittedImpressions = [];
 
-        for (var i = 1; i < impressions.length; i++) {
+        for (let i = 1; i < impressions.length; i++) {
             splittedImpressions.push(impressions[i-1]);
 
             if (i % 8 === 0) {

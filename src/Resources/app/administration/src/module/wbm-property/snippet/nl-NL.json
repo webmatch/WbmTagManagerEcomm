@@ -6,7 +6,7 @@
             "nameLabel": "Naam",
             "valueLabel": "Waarde",
             "onEventLabel": "Push als apart event",
-            "onEventLabel-helpText": "Push substructuur als aparte gebeurtenis na het laden van de pagina. Als er een 'event'-property op rootniveau is, wordt deze uitgeschakeld. 'ec: vertoningen' wordt gesplitst wanneer 6 kb wordt overschreden. Achtergrond: de Analytics-gegevenslimiet is 8 kb ",
+            "onEventLabel-helpText": "Push substructuur als aparte gebeurtenis na het laden van de pagina. Als er een 'event'-property op rootniveau is, wordt deze uitgeschakeld. 'impressions' wordt gesplitst wanneer 6 kb wordt overschreden. Achtergrond: de Analytics-gegevenslimiet is 8 kb ",
             "eventNameLabel": "Eventnaam",
             "saveButton": "Opslaan"
         }
