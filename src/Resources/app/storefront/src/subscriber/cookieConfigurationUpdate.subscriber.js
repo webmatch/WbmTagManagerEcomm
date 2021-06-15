@@ -1,5 +1,3 @@
-console.log('cookieConfigurationUpdate.subscriber');
-
 import { COOKIE_CONFIGURATION_UPDATE } from 'src/plugin/cookie/cookie-configuration.plugin';
 
 function eventCallback(updatedCookies) {
