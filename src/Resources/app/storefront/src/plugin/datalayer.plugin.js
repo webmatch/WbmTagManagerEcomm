@@ -8,7 +8,8 @@ export default class WbmDataLayer extends Plugin {
     }
 
     static push(dataLayer) {
-        if (!dataLayer.hasOwnProperty('ecommerce') ||
+        if (
+            !dataLayer.hasOwnProperty('ecommerce') ||
             !dataLayer.ecommerce.hasOwnProperty('impressions') ||
             !dataLayer.hasOwnProperty('event')
         ) {

@@ -1,3 +1,6 @@
+# 2.0.1
+* prevent splitting of impressions when "Push as separate event" is not explicit selected
+
 # 2.0.0
 * reduce response header
 * use session as temporary storage instead of cookie
