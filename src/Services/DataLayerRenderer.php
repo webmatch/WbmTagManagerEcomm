@@ -67,6 +67,9 @@ class DataLayerRenderer implements DataLayerRendererInterface
         }
 
         if (!empty($dataLayer['default'])) {
+            if (!empty($dataLayer['onEvent']) && !empty($dataLayer['default']['event'])) {
+                unset($dataLayer['default']['event']);
+            }
             $this->dataLayer[$route]['default'] = json_encode($dataLayer['default']);
         }
         if (!empty($dataLayer['onEvent'])) {

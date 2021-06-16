@@ -13,9 +13,6 @@
 
             {% endverbatim %}{% if onEvent %}{% verbatim %}
             var onEventDataLayer = JSON.parse('{% endverbatim %}{{ onEvent|raw }}{% verbatim %}');
-            window.addEventListener('load', function() {
-                window.dataLayer.push(onEventDataLayer);
-            });
             {% endverbatim %}{% endif %}
         </script>{% endif %}
     {% endblock %}

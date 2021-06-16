@@ -1,3 +1,10 @@
+# 2.0.0
+* reduce response header
+* use session as temporary storage instead of cookie
+* split large impressions in order not to exceed the analytics limit of 8kb. To use this feature, you have
+  to enable "Push as separate event" for the ecommerce subtree at "Home page", "Category page" & "Listing (ajax)".
+  :exclamation: Attention, this is an expert option and may break functionality, especially if you are already using this checkbox.
+  
 # 1.6.0
 * compatibility for SW 6.4
 

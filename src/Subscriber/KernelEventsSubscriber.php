@@ -3,17 +3,15 @@
 namespace Wbm\TagManagerEcomm\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Wbm\TagManagerEcomm\Services\DataLayerModulesInterface;
 use Wbm\TagManagerEcomm\Services\DataLayerRendererInterface;
+use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class KernelEventsSubscriber implements EventSubscriberInterface
 {
-    const COOKIE_NAME = '_gtm_push';
-
     /**
      * @var DataLayerModulesInterface
      */
@@ -49,7 +47,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
         $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
-        if ($isActive && !$event->getRequest()->cookies->get(self::COOKIE_NAME)) {
+        if ($isActive && !$event->getRequest()->getSession()->get(SessionUtility::ATTRIBUTE_NAME)) {
             $modules = $this->modules->getModules();
             $route = $event->getRequest()->attributes->get('_route');
 
@@ -64,8 +62,9 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        $cookie = $request->cookies->get(self::COOKIE_NAME);
-        $response->headers->clearCookie(self::COOKIE_NAME);
+        $session = $request->getSession();
+        $storedDatalayer = $session->get(SessionUtility::ATTRIBUTE_NAME);
+        $session->remove(SessionUtility::ATTRIBUTE_NAME);
 
         $route = $event->getRequest()->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
@@ -74,19 +73,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         }
 
         if (!empty($dataLayer) && $response->isRedirect()) {
-            $response->headers->setCookie(
-                new Cookie(
-                    self::COOKIE_NAME,
-                    $dataLayer,
-                    0,
-                    '/',
-                    null,
-                    $request->isSecure(),
-                    true,
-                    false,
-                    Cookie::SAMESITE_LAX
-                )
-            );
+            $session->set(SessionUtility::ATTRIBUTE_NAME, $dataLayer);
 
             return;
         }
@@ -95,19 +82,21 @@ class KernelEventsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($cookie && in_array($route, $this->modules->getResponseRoutes(), true)) {
-            $dataLayer = $cookie;
+        if ($storedDatalayer && in_array($route, $this->modules->getResponseRoutes(), true)) {
+            $dataLayer = $storedDatalayer;
         }
 
         if (empty($dataLayer)) {
             return;
         }
 
-        $response->headers->set(
-            'Access-Control-Allow-Headers',
-            $response->headers->get('Access-Control-Allow-Headers') . ',gtm-push'
+        $dataLayerScriptTag = sprintf(
+            '<script id="wbm-data-layer">%s</script>',
+            $dataLayer
         );
-        $response->headers->set('gtm-push', $dataLayer);
+
+        $content = $dataLayerScriptTag . PHP_EOL . $response->getContent();
+        $response->setContent($content);
 
         $event->setResponse($response);
     }
