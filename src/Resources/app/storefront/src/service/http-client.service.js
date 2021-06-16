@@ -23,7 +23,11 @@ HttpClient.prototype._registerOnLoaded = function (request, callback) {
                 }
 
                 var dataLayer = JSON.parse(dataLayers[key]);
-                WbmDataLayer.push(dataLayer);
+                if (key === 'default') {
+                    window.dataLayer.push(dataLayer);
+                } else {
+                    WbmDataLayer.push(dataLayer);
+                }
             }
         }
     });
