@@ -27,7 +27,7 @@ composer require webmatch/tag-manager-sw6
 After installation, use the following commands to install and activate the plugin in shopware
 ```
 bin/console plugin:refresh
-bin/console plugin install --activate WbmTagManagerEcomm
+bin/console plugin:install --activate WbmTagManagerEcomm
 ```
 
 or the following to update, if previously installed
