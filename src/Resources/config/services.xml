@@ -11,6 +11,7 @@
         <service id="Wbm\TagManagerEcomm\Core\Content\Property\PropertyDefinition">
             <tag name="shopware.entity.definition" entity="wbm_data_layer_properties" />
         </service>
+
         <service id="Wbm\TagManagerEcomm\Subscriber\StorefrontRenderSubscriber">
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
@@ -21,6 +22,11 @@
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
             <tag name="kernel.event_subscriber" />
         </service>
+        <service id="Wbm\TagManagerEcomm\Subscriber\CartAddPrice\AfterLineItemAddedSubscriber">
+            <argument type="service" id="session" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
         <service id="Wbm\TagManagerEcomm\Services\DataLayerModules">
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />

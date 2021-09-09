@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class TagManagerExtension extends AbstractExtension
 {
@@ -168,36 +169,12 @@ class TagManagerExtension extends AbstractExtension
         string $stackable = '1',
         string $removable = '1'
     ): float {
-        $salesChannelContext = $this->getSalesChannelContext($twigContext);
+        $session = $this->requestStack->getMasterRequest()->getSession();
+        $session->set(SessionUtility::UPDATE_FLAG, SessionUtility::ADDCART_UPDATEFLAG_VALUE);
+        // quickfix: price will be saved to session in AfterLineItemAddedSubscriber
+        // and before passing it to FE the correct price will be injected into datalayer
 
-        $lineItem = new LineItem(
-            $uuid,
-            $type,
-            $referencedId,
-            (int) $quantity
-        );
-        $lineItem->setStackable((bool) $stackable);
-        $lineItem->setRemovable((bool) $removable);
-        $lineItem->markModified();
-
-        $temporaryCart = $this->cartService->createNew(
-            \uniqid('temporaryToken.', true),
-            $salesChannelContext->getSalesChannel()->getName() ?: CartService::SALES_CHANNEL
-        );
-
-        // import current basket to consider all rules
-        $actualCart = $this->cartService->getCart($salesChannelContext->getToken(), $salesChannelContext);
-        foreach ($actualCart->getLineItems() as $actualLineItem) {
-            $temporaryCart->add($actualLineItem);
-        }
-
-        $temporaryCart->add($lineItem);
-        $temporaryCart->markModified();
-        $this->cartRuleLoader->loadByCart($salesChannelContext, $temporaryCart, new CartBehavior());
-
-        $lineItem = $temporaryCart->getLineItems()->get($uuid);
-
-        return ($lineItem && $lineItem->getPrice()) ? $lineItem->getPrice()->getUnitPrice() : 0;
+        return 0;
     }
 
     public function cartremoveprice(

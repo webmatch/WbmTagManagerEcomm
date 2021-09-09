@@ -1,3 +1,7 @@
+# 2.1.0
+* refactor addtocart: use calculated price from shopware, instead of create a new cart and calculating it again.
+The useless temporary carts will be deleted by migration.
+
 # 2.0.1
 * prevent splitting of impressions when "Push as separate event" is not explicit selected
 

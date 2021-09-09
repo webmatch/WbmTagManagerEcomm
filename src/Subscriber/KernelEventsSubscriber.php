@@ -3,6 +3,8 @@
 namespace Wbm\TagManagerEcomm\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -69,6 +71,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $route = $event->getRequest()->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
         if ($dataLayer !== null) {
+            $dataLayer = $this->updateWithSessionVars($dataLayer, $session);
             $dataLayer = json_encode($dataLayer);
         }
 
@@ -99,5 +102,35 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $response->setContent($content);
 
         $event->setResponse($response);
+    }
+
+    /**
+     * @TODO: function is a quickfix and should be refactored
+     * @param array $dataLayer
+     * @param Session $session
+     * @return array
+     * @throws \JsonException
+     */
+    private function updateWithSessionVars(array $dataLayer, SessionInterface $session): array
+    {
+        if (!$session->has(SessionUtility::UPDATE_FLAG)) {
+            return $dataLayer;
+        }
+
+        if ($session->get(SessionUtility::UPDATE_FLAG) === SessionUtility::ADDCART_UPDATEFLAG_VALUE) {
+            foreach ($dataLayer as &$dLayer) {
+                $dLayer = json_decode($dLayer, true, 512, JSON_THROW_ON_ERROR);
+                foreach ($dLayer['ecommerce']['add']['products'] as &$product) {
+                    $lineItems = $session->get(SessionUtility::ADDCART_CART_ITEMS);
+                    $product['price'] = $lineItems[$product['id']];
+                }
+                unset($product);
+                $dLayer = json_encode($dLayer);
+            }
+            $session->remove(SessionUtility::UPDATE_FLAG);
+            $session->remove(SessionUtility::ADDCART_CART_ITEMS);
+        }
+
+        return $dataLayer;
     }
 }
