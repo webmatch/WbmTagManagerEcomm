@@ -24,12 +24,19 @@ class KernelEventsSubscriber implements EventSubscriberInterface
      */
     private $dataLayerRenderer;
 
+    /**
+     * @var SessionUtility
+     */
+    private $session;
+
     public function __construct(
         DataLayerModulesInterface $modules,
-        DataLayerRendererInterface $dataLayerRender
+        DataLayerRendererInterface $dataLayerRender,
+        SessionUtility $session
     ) {
         $this->modules = $modules;
         $this->dataLayerRenderer = $dataLayerRender;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,13 +56,12 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
         $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
-        if ($isActive && !$event->getRequest()->getSession()->get(SessionUtility::ATTRIBUTE_NAME)) {
+        if ($isActive && !$this->session->get(SessionUtility::ATTRIBUTE_NAME)) {
             $modules = $this->modules->getModules();
             $route = $event->getRequest()->attributes->get('_route');
 
             if (array_key_exists($route, $modules) && !empty($modules[$route])) {
-                $this->dataLayerRenderer->setVariables($route, [])
-                    ->renderDataLayer($route);
+                $this->dataLayerRenderer->setVariables($route, [])->renderDataLayer($route);
             }
         }
     }
@@ -64,19 +70,18 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        $session = $request->getSession();
-        $storedDatalayer = $session->get(SessionUtility::ATTRIBUTE_NAME);
-        $session->remove(SessionUtility::ATTRIBUTE_NAME);
+        $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
+        $this->session->remove(SessionUtility::ATTRIBUTE_NAME);
 
         $route = $event->getRequest()->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
         if ($dataLayer !== null) {
-            $dataLayer = $this->updateWithSessionVars($dataLayer, $session);
+            $dataLayer = $this->session->injectSessionVars($dataLayer);
             $dataLayer = json_encode($dataLayer);
         }
 
         if (!empty($dataLayer) && $response->isRedirect()) {
-            $session->set(SessionUtility::ATTRIBUTE_NAME, $dataLayer);
+            $this->session->set(SessionUtility::ATTRIBUTE_NAME, $dataLayer);
 
             return;
         }
@@ -102,35 +107,5 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $response->setContent($content);
 
         $event->setResponse($response);
-    }
-
-    /**
-     * @TODO: function is a quickfix and should be refactored
-     * @param array $dataLayer
-     * @param Session $session
-     * @return array
-     * @throws \JsonException
-     */
-    private function updateWithSessionVars(array $dataLayer, SessionInterface $session): array
-    {
-        if (!$session->has(SessionUtility::UPDATE_FLAG)) {
-            return $dataLayer;
-        }
-
-        if ($session->get(SessionUtility::UPDATE_FLAG) === SessionUtility::ADDCART_UPDATEFLAG_VALUE) {
-            foreach ($dataLayer as &$dLayer) {
-                $dLayer = json_decode($dLayer, true, 512, JSON_THROW_ON_ERROR);
-                foreach ($dLayer['ecommerce']['add']['products'] as &$product) {
-                    $lineItems = $session->get(SessionUtility::ADDCART_CART_ITEMS);
-                    $product['price'] = $lineItems[$product['id']];
-                }
-                unset($product);
-                $dLayer = json_encode($dLayer);
-            }
-            $session->remove(SessionUtility::UPDATE_FLAG);
-            $session->remove(SessionUtility::ADDCART_CART_ITEMS);
-        }
-
-        return $dataLayer;
     }
 }

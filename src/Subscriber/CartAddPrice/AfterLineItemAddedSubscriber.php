@@ -6,17 +6,15 @@ namespace Wbm\TagManagerEcomm\Subscriber\CartAddPrice;
 
 use Shopware\Core\Checkout\Cart\Event\AfterLineItemAddedEvent;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
-use Shopware\Core\Checkout\Cart\LineItem\LineItemCollection;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class AfterLineItemAddedSubscriber implements EventSubscriberInterface
 {
-    protected Session $session;
+    protected SessionUtility $session;
 
-    public function __construct(Session $session)
+    public function __construct(SessionUtility $session)
     {
         $this->session = $session;
     }
