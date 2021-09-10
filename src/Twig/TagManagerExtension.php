@@ -160,18 +160,11 @@ class TagManagerExtension extends AbstractExtension
         return $salesChannelContext->getCurrency()->getIsoCode();
     }
 
-    public function cartaddprice(
-        $twigContext,
-        string $uuid = '',
-        string $quantity = '1',
-        string $type = 'product',
-        string $referencedId = '',
-        string $stackable = '1',
-        string $removable = '1'
-    ): float {
+    public function cartaddprice(): int
+    {
         $session = $this->requestStack->getMasterRequest()->getSession();
         $session->set(SessionUtility::UPDATE_FLAG, SessionUtility::ADDCART_UPDATEFLAG_VALUE);
-        // quickfix: price will be saved to session in AfterLineItemAddedSubscriber
+        // price will be saved to session in "Subscriber/AddToCart/AfterLineItemAddedSubscriber"
         // and before passing it to FE the correct price will be injected into datalayer
 
         return 0;
