@@ -21,12 +21,19 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
      */
     private $dataLayerRenderer;
 
+    /**
+     * @var SessionUtility
+     */
+    private $session;
+
     public function __construct(
         DataLayerModules $modules,
-        DataLayerRenderer $dataLayerRenderer
+        DataLayerRenderer $dataLayerRenderer,
+        SessionUtility $session
     ) {
         $this->modules = $modules;
         $this->dataLayerRenderer = $dataLayerRenderer;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents(): array
@@ -47,7 +54,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $storedDatalayer = $event->getRequest()->getSession()->get(SessionUtility::ATTRIBUTE_NAME);
+        $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
         if ($storedDatalayer) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
                 $dataLayer = json_decode($storedDatalayer, true);
@@ -57,8 +64,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             $modules = $this->modules->getModules();
 
             if (array_key_exists($route, $modules)) {
-                $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)
-                    ->renderDataLayer($route);
+                $dataLayer = $this->dataLayerRenderer->setVariables($route, $parameters)->renderDataLayer($route);
                 $dataLayer = $dataLayer->getDataLayer($route);
             }
         }
