@@ -12,7 +12,10 @@ use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class AfterLineItemAddedSubscriber implements EventSubscriberInterface
 {
-    protected SessionUtility $session;
+    /**
+     * @var SessionUtility
+     */
+    protected $session;
 
     public function __construct(SessionUtility $session)
     {
