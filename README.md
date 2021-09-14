@@ -111,12 +111,12 @@ Function that returns the 3 letter ISO code of the storefronts currency.
 cartaddprice
 -----
 
-Function that returns the unit price of a product when added to the basket in its current state.  
-Expects parameters for product id in non-binary format, quantity, type (e.g. "product"), reference id, stackable & removable flags. (all as strings)  
-Primarily for use in `addToBasket` events using form data as parameters.
+Function that sets a flag in the session in order to catch the price in from AfterLineItemAddedEvent, which will be 
+injected into the dataLayer right before passing it to the frontend.
+Primarily for use in `addToBasket` events.
 
 ```
-{{ cartaddprice(item.id, item.quantity, item.type, item.referencedId, item.stackable, item.removable) }}
+{{ cartaddprice() }}
 ```
 
 cartremoveprice
