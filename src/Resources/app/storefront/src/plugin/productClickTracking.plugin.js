@@ -47,10 +47,17 @@ export default class ProductClickTracking extends Plugin {
         if (DomAccess.hasAttribute(this.el, 'href')) {
             event.preventDefault();
         }
+        let redirect = true;
+
         try {
             this.setImpressions();
 
             const parent = this.el.closest(this.options.parent);
+            console.log(parent.parentElement);
+            // enable quickview feature of SwagCmsExtension
+            if (parent.parentElement.dataset.swagCmsExtensionsQuickviewBox) {
+                redirect = false;
+            }
             const inputField = DomAccess.querySelector(parent, '[itemprop="sku"]');
             const productNo = DomAccess.getAttribute(inputField, 'content');
             const product = this.impressions.find((value, index) => {
@@ -75,7 +82,11 @@ export default class ProductClickTracking extends Plugin {
         }
 
         if (DomAccess.hasAttribute(this.el, 'href')) {
-            document.location = DomAccess.getAttribute(this.el, 'href');
+            console.log(this.el);
+            console.log('wbm redirect');
+            if (redirect) {
+                document.location = DomAccess.getAttribute(this.el, 'href');
+            }
         }
     }
 }
