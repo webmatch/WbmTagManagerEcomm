@@ -56,13 +56,12 @@ export default class ProductClickTracking extends Plugin {
                 event: 'productClick',
                 ecommerce: {
                     click: {
-                        actionField: { list: product.list },
+                        actionField: {list: product.list},
                         products: [product]
                     }
                 }
             });
         } catch (e) {
-            console.log(e);
             // if something went wrong, just go on ...
         }
 
@@ -93,8 +92,12 @@ export default class ProductClickTracking extends Plugin {
         if (DomAccess.hasAttribute(this.el, 'href')) {
             redirect = true;
         }
-        // enable quickview feature of SwagCmsExtension
-        if (this.el.closest(this.options.parent).parentElement.dataset.swagCmsExtensionsQuickviewBox) {
+        // enabled quickview feature of SwagCmsExtension?
+        const quickviewSelector = '[data-swag-cms-extensions-quickview="true"]';
+        if (this.el.closest('.cms-section').querySelector(quickviewSelector) !== null
+            || (document.body.classList.contains('is-ctl-search')
+                && this.el.closest('.container-main').querySelector(quickviewSelector) !== null)
+        ) {
             redirect = false;
         }
 
