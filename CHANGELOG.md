@@ -1,3 +1,6 @@
+# 2.1.1
+* do not open product when SwagCmsExtensions quickview feature is activated
+
 # 2.1.0
 * refactor addtocart: use calculated price from shopware, instead of create a new cart and calculating it again.
 The useless temporary carts will be deleted by migration.

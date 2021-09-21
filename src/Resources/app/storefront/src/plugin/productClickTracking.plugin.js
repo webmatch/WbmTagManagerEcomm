@@ -8,17 +8,17 @@ export default class ProductClickTracking extends Plugin {
         if (gtmIsTrackingProductClicks !== true) {
             return;
         }
-        this.registerEvents();
+        this._registerEvents();
     }
 
-    registerEvents() {
+    _registerEvents() {
         const self = this;
         this.el.addEventListener('click', (event) => {
             self.onProductClicked(event);
         });
     }
 
-    setImpressions() {
+    _setImpressions() {
         const dataLayer = [
             window.dataLayer
         ];
@@ -47,25 +47,16 @@ export default class ProductClickTracking extends Plugin {
         if (DomAccess.hasAttribute(this.el, 'href')) {
             event.preventDefault();
         }
+
         try {
-            this.setImpressions();
-
-            const parent = this.el.closest(this.options.parent);
-            const inputField = DomAccess.querySelector(parent, '[itemprop="sku"]');
-            const productNo = DomAccess.getAttribute(inputField, 'content');
-            const product = this.impressions.find((value, index) => {
-                return value.id === productNo;
-            });
-
-            if (product === undefined) {
-                throw new InvalidImpressionsError('product not found in impressions');
-            }
+            this._setImpressions();
+            const product = this._getProduct();
 
             window.dataLayer.push({
                 event: 'productClick',
                 ecommerce: {
                     click: {
-                        actionField: { list: product.list },
+                        actionField: {list: product.list},
                         products: [product]
                     }
                 }
@@ -74,9 +65,43 @@ export default class ProductClickTracking extends Plugin {
             // if something went wrong, just go on ...
         }
 
-        if (DomAccess.hasAttribute(this.el, 'href')) {
+        if (this._shouldRedirect()) {
             document.location = DomAccess.getAttribute(this.el, 'href');
         }
+    }
+
+    _getProduct() {
+        const parent = this.el.closest(this.options.parent);
+        const inputField = DomAccess.querySelector(parent, '[itemprop="sku"]');
+        const productNo = DomAccess.getAttribute(inputField, 'content');
+        const product = this.impressions.find((value, index) => {
+            return value.id === productNo;
+        });
+
+        if (product === undefined) {
+            throw new InvalidImpressionsError('product not found in impressions');
+        }
+
+        return product
+    }
+
+    _shouldRedirect() {
+        let redirect = false;
+
+        // is there even a link?
+        if (DomAccess.hasAttribute(this.el, 'href')) {
+            redirect = true;
+        }
+        // enabled quickview feature of SwagCmsExtension?
+        const quickviewSelector = '[data-swag-cms-extensions-quickview="true"]';
+        if (this.el.closest('.cms-section').querySelector(quickviewSelector) !== null
+            || (document.body.classList.contains('is-ctl-search')
+                && this.el.closest('.container-main').querySelector(quickviewSelector) !== null)
+        ) {
+            redirect = false;
+        }
+
+        return redirect;
     }
 }
 
