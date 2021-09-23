@@ -64,7 +64,7 @@ class AfterLineItemAddedSubscriber implements EventSubscriberInterface
                 continue;
             }
 
-            // in case payload productNumber is not set, get product from db for the productNumber
+            // in case payload productNumber is not set, get the productNumber from DB product
             $criteria = new Criteria();
             $criteria->addFilter(new EqualsFilter('id', $addedLineItem->getId()));
             $product = $this->productRepository->search($criteria, Context::createDefaultContext())->first();
