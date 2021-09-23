@@ -26,6 +26,7 @@
         </service>
         <service id="Wbm\TagManagerEcomm\Subscriber\CartAddPrice\AfterLineItemAddedSubscriber">
             <argument type="service" id="Wbm\TagManagerEcomm\Utility\SessionUtility" />
+            <argument type="service" id="product.repository"/>
             <tag name="kernel.event_subscriber" />
         </service>
 
