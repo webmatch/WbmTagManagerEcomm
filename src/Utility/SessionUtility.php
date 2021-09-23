@@ -22,7 +22,7 @@ class SessionUtility extends Session
         if ($this->get(self::UPDATE_FLAG) === self::ADDCART_UPDATEFLAG_VALUE) {
             try {
                 foreach ($dataLayer as &$dLayer) {
-                    $dLayer = json_decode($dLayer, true, 512, JSON_THROW_ON_ERROR);
+                    $dLayer = json_decode($dLayer, true, 512);
                     foreach ($dLayer['ecommerce']['add']['products'] as &$product) {
                         $lineItems = $this->get(self::ADDCART_CART_ITEMS);
                         $product['price'] = $lineItems[$product['id']];

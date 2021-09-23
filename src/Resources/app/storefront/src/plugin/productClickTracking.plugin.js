@@ -65,7 +65,7 @@ export default class ProductClickTracking extends Plugin {
             // if something went wrong, just go on ...
         }
 
-        if (this._shouldRedirect()) {
+        if (this._shouldRedirect(event)) {
             document.location = DomAccess.getAttribute(this.el, 'href');
         }
     }
@@ -85,12 +85,16 @@ export default class ProductClickTracking extends Plugin {
         return product
     }
 
-    _shouldRedirect() {
+    _shouldRedirect(event) {
         let redirect = false;
 
         // is there even a link?
         if (DomAccess.hasAttribute(this.el, 'href')) {
             redirect = true;
+        }
+        // is add to cart button
+        if (event.target.classList.contains('btn-buy')) {
+            redirect = false;
         }
         // enabled quickview feature of SwagCmsExtension?
         const quickviewSelector = '[data-swag-cms-extensions-quickview="true"]';

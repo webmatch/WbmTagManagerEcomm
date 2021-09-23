@@ -7,6 +7,11 @@ namespace Wbm\TagManagerEcomm\Subscriber\CartAddPrice;
 use Shopware\Core\Checkout\Cart\Event\AfterLineItemAddedEvent;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
+use Shopware\Core\Content\Product\ProductEntity;
+use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
@@ -17,9 +22,15 @@ class AfterLineItemAddedSubscriber implements EventSubscriberInterface
      */
     protected $session;
 
-    public function __construct(SessionUtility $session)
+    /**
+     * @var EntityRepositoryInterface
+     */
+    protected $productRepository;
+
+    public function __construct(SessionUtility $session, EntityRepositoryInterface $productRepository)
     {
         $this->session = $session;
+        $this->productRepository = $productRepository;
     }
 
     public static function getSubscribedEvents()
@@ -44,7 +55,23 @@ class AfterLineItemAddedSubscriber implements EventSubscriberInterface
                 continue;
             }
 
-            $lineItems[$cartLineItem->getPayload()['productNumber']] = $cartLineItem->getPrice()->getUnitPrice();
+            if (
+                !empty($cartLineItem->getPayload())
+                && isset($cartLineItem->getPayload()['productNumber'])
+                && !empty($cartLineItem->getPayload()['productNumber'])
+            ) {
+                $lineItems[$cartLineItem->getPayload()['productNumber']] = $cartLineItem->getPrice()->getUnitPrice();
+                continue;
+            }
+
+            // in case payload productNumber is not set, get the productNumber from DB product
+            $criteria = new Criteria();
+            $criteria->addFilter(new EqualsFilter('id', $addedLineItem->getId()));
+            $product = $this->productRepository->search($criteria, Context::createDefaultContext())->first();
+
+            if ($product instanceof ProductEntity) {
+                $lineItems[$product->getProductNumber()] = $cartLineItem->getPrice()->getUnitPrice();
+            }
         }
 
         $this->session->set(SessionUtility::ADDCART_CART_ITEMS, $lineItems);
