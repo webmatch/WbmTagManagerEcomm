@@ -35,7 +35,7 @@ body:
     - type: textarea
       id: steps-to-reproduce
       attributes:
-          label: How to reproduce
-          description: Tell us how the bug can be reproduced
+          label: How to reproduce in a demoshop
+          description: Tell us how the bug can be reproduced in a demoshop
       validations:
           required: true
