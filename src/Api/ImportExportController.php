@@ -16,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImportExportController extends AbstractController
 {
     /**
-     * @Route("/api/v{version}/_action/wbm-tagmanager/export", name="api.action.core.wbm-tagmanager.export", methods={"GET"})
+     * @Route("/api/v{version}/_action/wbm-tagmanager/export", name="api.action.core.wbm-tagmanager.export-legacy", methods={"GET"})
+     * @Route("/api/_action/wbm-tagmanager/export", name="api.action.core.wbm-tagmanager.export", methods={"GET"})
      */
     public function export(): JsonResponse
     {
@@ -38,7 +39,8 @@ class ImportExportController extends AbstractController
     }
 
     /**
-     * @Route("/api/v{version}/_action/wbm-tagmanager/import", name="api.action.core.wbm-tagmanager.import", methods={"POST"})
+     * @Route("/api/v{version}/_action/wbm-tagmanager/import", name="api.action.core.wbm-tagmanager.import-legacy", methods={"POST"})
+     * @Route("/api/_action/wbm-tagmanager/import", name="api.action.core.wbm-tagmanager.import", methods={"POST"})
      */
     public function import(Request $request): JsonResponse
     {
