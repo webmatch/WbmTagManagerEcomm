@@ -1,3 +1,6 @@
+# 2.1.3
+* add new store-api routes to import and export
+
 # 2.1.2
 * do not open product on add to cart button
 * load product from DB for the case payload productNumber is not set or empty
