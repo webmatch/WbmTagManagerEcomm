@@ -54,19 +54,21 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $modules = $this->modules->getModules();
         $route = $event->getRequest()->attributes->get('_route');
 
-        if (!array_key_exists($route, $modules)) {
+        if (empty($modules[$route])
+            || !array_key_exists($route, $modules)
+            || $this->session->has(SessionUtility::ATTRIBUTE_NAME)
+        ) {
             return;
         }
 
         $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
         $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
-        if ($isActive
-            && !empty($modules[$route])
-            && !$this->session->has(SessionUtility::ATTRIBUTE_NAME)
-        ) {
-            $this->dataLayerRenderer->setVariables($route, [])->renderDataLayer($route);
+        if (!$isActive) {
+            return;
         }
+
+        $this->dataLayerRenderer->setVariables($route, [])->renderDataLayer($route);
     }
 
     public function prependDataLayerToResponse(ResponseEvent $event): void
@@ -76,7 +78,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
         $this->session->remove(SessionUtility::ATTRIBUTE_NAME);
 
-        $route = $event->getRequest()->attributes->get('_route');
+        $route = $request->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
         if ($dataLayer !== null) {
             $dataLayer = $this->session->injectSessionVars($dataLayer);
