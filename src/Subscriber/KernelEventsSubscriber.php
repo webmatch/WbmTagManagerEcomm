@@ -51,16 +51,21 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
     public function getDataLayerForXmlHttpRequest(ControllerEvent $event): void
     {
+        $modules = $this->modules->getModules();
+        $route = $event->getRequest()->attributes->get('_route');
+
+        if (!array_key_exists($route, $modules)) {
+            return;
+        }
+
         $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
         $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
-        if ($isActive && !$this->session->get(SessionUtility::ATTRIBUTE_NAME)) {
-            $modules = $this->modules->getModules();
-            $route = $event->getRequest()->attributes->get('_route');
-
-            if (array_key_exists($route, $modules) && !empty($modules[$route])) {
-                $this->dataLayerRenderer->setVariables($route, [])->renderDataLayer($route);
-            }
+        if ($isActive
+            && !empty($modules[$route])
+            && !$this->session->has(SessionUtility::ATTRIBUTE_NAME)
+        ) {
+            $this->dataLayerRenderer->setVariables($route, [])->renderDataLayer($route);
         }
     }
 

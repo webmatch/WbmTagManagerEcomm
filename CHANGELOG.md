@@ -1,3 +1,7 @@
+# 2.1.4
+* increase performance in admin
+* fix cross selling clicks by harden js-condition
+
 # 2.1.3
 * add new store-api routes to import and export
 
