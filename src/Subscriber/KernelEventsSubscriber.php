@@ -54,8 +54,8 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $modules = $this->modules->getModules();
         $route = $event->getRequest()->attributes->get('_route');
 
-        if (empty($modules[$route])
-            || !array_key_exists($route, $modules)
+        if (!array_key_exists($route, $modules)
+            || empty($modules[$route])
             || $this->session->has(SessionUtility::ATTRIBUTE_NAME)
         ) {
             return;
