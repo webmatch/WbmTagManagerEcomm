@@ -6,15 +6,15 @@ interface DataLayerModulesInterface
 {
     public function getModules(): array;
 
-    public function getContainerId(): ?string;
+    public function getContainerId(?string $salesChannelId = null): ?string;
 
-    public function isActive(): ?bool;
+    public function isActive(?string $salesChannelId = null): ?bool;
 
-    public function isTrackingProductClicks(): ?bool;
+    public function isTrackingProductClicks(?string $salesChannelId = null): ?bool;
 
-    public function hasSWConsentSupport(): int;
+    public function hasSWConsentSupport(?string $salesChannelId = null): int;
 
-    public function getScriptTagAttributes(): string;
+    public function getScriptTagAttributes(?string $salesChannelId = null): string;
 
-    public function getExtendedURLParameter(): string;
+    public function getExtendedURLParameter(?string $salesChannelId = null): string;
 }
