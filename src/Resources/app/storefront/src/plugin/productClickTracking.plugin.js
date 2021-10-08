@@ -98,7 +98,7 @@ export default class ProductClickTracking extends Plugin {
         }
         // enabled quickview feature of SwagCmsExtension?
         const quickviewSelector = '[data-swag-cms-extensions-quickview="true"]';
-        if (this.el.closest('.cms-section').querySelector(quickviewSelector) !== null
+        if ((this.el.closest('.cms-section') && this.el.closest('.cms-section').querySelector(quickviewSelector) !== null)
             || (document.body.classList.contains('is-ctl-search')
                 && this.el.closest('.container-main').querySelector(quickviewSelector) !== null)
         ) {
