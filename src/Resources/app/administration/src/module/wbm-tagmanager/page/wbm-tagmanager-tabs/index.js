@@ -18,7 +18,8 @@ Component.register('wbm-tagmanager-tabs', {
             repository: null,
             modules: null,
             loadedConfig: false,
-            config: null
+            config: null,
+            routerPath: null
         };
     },
 
@@ -81,6 +82,14 @@ Component.register('wbm-tagmanager-tabs', {
                     });
                 });
             });
+    },
+
+    computed: {
+        getRouterPath() {
+            const version = Shopware.Context.app.config.version.replace(/\./g, '');
+            console.log(version);
+            return (version < 6440 ? 'sw.plugin.settings' : 'sw.extension.config')
+        }
     },
 
     methods: {
