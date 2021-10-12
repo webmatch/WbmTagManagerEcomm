@@ -1,3 +1,6 @@
+# 2.1.5
+* fix button link to extension config for sw >= 6.4
+
 # 2.1.4
 * increase performance in admin
 * fix cross selling clicks by harden js-condition

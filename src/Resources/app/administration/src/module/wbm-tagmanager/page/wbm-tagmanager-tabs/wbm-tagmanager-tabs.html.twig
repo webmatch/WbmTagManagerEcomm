@@ -55,7 +55,8 @@
                                 </sw-grid-column>
                             </template>
                         </sw-grid>
-                        <sw-button :routerLink="{ name: 'sw.plugin.settings', params: { namespace: 'WbmTagManagerEcomm' } }">
+
+                        <sw-button :routerLink="{ name: getRouterPath, params: { namespace: 'WbmTagManagerEcomm' } }">
                             {{ $t('wbm-tagmanager.tabs.addContainerId') }}
                         </sw-button>
                     </sw-card>
