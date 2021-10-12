@@ -18,8 +18,7 @@ Component.register('wbm-tagmanager-tabs', {
             repository: null,
             modules: null,
             loadedConfig: false,
-            config: null,
-            routerPath: null
+            config: null
         };
     },
 
