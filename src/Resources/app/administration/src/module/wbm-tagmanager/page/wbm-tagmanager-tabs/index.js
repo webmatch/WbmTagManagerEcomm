@@ -86,7 +86,7 @@ Component.register('wbm-tagmanager-tabs', {
     computed: {
         getRouterPath() {
             const version = Shopware.Context.app.config.version.replace(/\./g, '');
-            return (parseInt(version) < 6440 ? 'sw.plugin.settings' : 'sw.extension.config')
+            return (parseInt(version) < 6440 ? 'sw.plugin.settings' : 'sw.extension.config');
         }
     },
 
