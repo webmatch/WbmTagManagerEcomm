@@ -2,9 +2,9 @@
 
 namespace Wbm\TagManagerEcomm\Utility;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class SessionUtility extends Session
+class SessionUtility
 {
     public const ATTRIBUTE_NAME = 'wbm-stored-datalayer';
 
@@ -13,18 +13,18 @@ class SessionUtility extends Session
     public const ADDCART_UPDATEFLAG_VALUE = 'cartaddprice';
     public const ADDCART_CART_ITEMS = 'wbm-stored-addCart-addedCartItems';
 
-    public function injectSessionVars(array $dataLayer): array
+    public static function injectSessionVars(array $dataLayer, SessionInterface $session): array
     {
-        if (!$this->has(self::UPDATE_FLAG)) {
+        if (!$session->has(self::UPDATE_FLAG)) {
             return $dataLayer;
         }
 
-        if ($this->get(self::UPDATE_FLAG) === self::ADDCART_UPDATEFLAG_VALUE) {
+        if ($session->get(self::UPDATE_FLAG) === self::ADDCART_UPDATEFLAG_VALUE) {
             try {
                 foreach ($dataLayer as &$dLayer) {
                     $dLayer = json_decode($dLayer, true, 512);
                     foreach ($dLayer['ecommerce']['add']['products'] as &$product) {
-                        $lineItems = $this->get(self::ADDCART_CART_ITEMS);
+                        $lineItems = $session->get(self::ADDCART_CART_ITEMS);
                         $product['price'] = $lineItems[$product['id']];
                     }
                     unset($product);
@@ -33,8 +33,8 @@ class SessionUtility extends Session
             } catch (\Throwable $t) {
                 // just to make sure session vars are removed on error
             }
-            $this->remove(self::UPDATE_FLAG);
-            $this->remove(self::ADDCART_CART_ITEMS);
+            $session->remove(self::UPDATE_FLAG);
+            $session->remove(self::ADDCART_CART_ITEMS);
         }
 
         return $dataLayer;

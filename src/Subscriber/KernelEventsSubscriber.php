@@ -2,7 +2,11 @@
 
 namespace Wbm\TagManagerEcomm\Subscriber;
 
+use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\Framework\Routing\KernelListenerPriorities;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -23,14 +27,14 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     private $dataLayerRenderer;
 
     /**
-     * @var SessionUtility
+     * @var SessionInterface
      */
     private $session;
 
     public function __construct(
         DataLayerModulesInterface $modules,
         DataLayerRendererInterface $dataLayerRender,
-        SessionUtility $session
+        SessionInterface $session
     ) {
         $this->modules = $modules;
         $this->dataLayerRenderer = $dataLayerRender;
@@ -41,18 +45,23 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::CONTROLLER => [
-                ['getDataLayerForXmlHttpRequest'],
+                ['getDataLayerForXmlHttpRequest', KernelListenerPriorities::KERNEL_CONTROLLER_EVENT_SCOPE_VALIDATE_POST],
             ],
             KernelEvents::RESPONSE => [
-                ['prependDataLayerToResponse'],
+                ['prependDataLayerToResponse', -1],
             ],
         ];
     }
 
     public function getDataLayerForXmlHttpRequest(ControllerEvent $event): void
     {
+        $request = $event->getRequest();
+        if (!$this->isStorefrontRequest($request)) {
+            return;
+        }
+
         $modules = $this->modules->getModules();
-        $route = $event->getRequest()->attributes->get('_route');
+        $route = $request->attributes->get('_route');
 
         if (!array_key_exists($route, $modules)
             || empty($modules[$route])
@@ -61,7 +70,7 @@ class KernelEventsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $salesChannelId = $event->getRequest()->get('sw-sales-channel-id');
+        $salesChannelId = $request->get('sw-sales-channel-id');
         $isActive = !empty($this->modules->getContainerId($salesChannelId)) && $this->modules->isActive($salesChannelId);
 
         if (!$isActive) {
@@ -75,13 +84,14 @@ class KernelEventsSubscriber implements EventSubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
-        $this->session->remove(SessionUtility::ATTRIBUTE_NAME);
+        if (!$this->isStorefrontRequest($request)) {
+            return;
+        }
 
         $route = $request->attributes->get('_route');
         $dataLayer = $this->dataLayerRenderer->getDataLayer($route);
         if ($dataLayer !== null) {
-            $dataLayer = $this->session->injectSessionVars($dataLayer);
+            $dataLayer = SessionUtility::injectSessionVars($dataLayer, $this->session);
             $dataLayer = json_encode($dataLayer);
         }
 
@@ -95,6 +105,8 @@ class KernelEventsSubscriber implements EventSubscriberInterface
             return;
         }
 
+        $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
+        $this->session->remove(SessionUtility::ATTRIBUTE_NAME);
         if ($storedDatalayer && in_array($route, $this->modules->getResponseRoutes(), true)) {
             $dataLayer = $storedDatalayer;
         }
@@ -112,5 +124,17 @@ class KernelEventsSubscriber implements EventSubscriberInterface
         $response->setContent($content);
 
         $event->setResponse($response);
+    }
+
+    private function isStorefrontRequest(Request $request)
+    {
+        if ($request->attributes->has('_routeScope')
+            && $request->attributes->get('_routeScope') instanceof RouteScope
+            && $request->attributes->get('_routeScope')->hasScope('storefront')
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }
