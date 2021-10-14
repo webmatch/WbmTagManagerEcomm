@@ -28,7 +28,6 @@
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
             <argument type="service" id="session" />
-            <argument type="service" id="monolog.logger.wbmTagManager"/>
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="Wbm\TagManagerEcomm\Subscriber\CartAddPrice\AfterLineItemAddedSubscriber">
