@@ -4,6 +4,7 @@ namespace Wbm\TagManagerEcomm\Subscriber;
 
 use Shopware\Storefront\Event\StorefrontRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Wbm\TagManagerEcomm\Cookie\CustomCookieProvider;
 use Wbm\TagManagerEcomm\Services\DataLayerModules;
 use Wbm\TagManagerEcomm\Services\DataLayerRenderer;
@@ -22,14 +23,14 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
     private $dataLayerRenderer;
 
     /**
-     * @var SessionUtility
+     * @var SessionInterface
      */
     private $session;
 
     public function __construct(
         DataLayerModules $modules,
         DataLayerRenderer $dataLayerRenderer,
-        SessionUtility $session
+        SessionInterface $session
     ) {
         $this->modules = $modules;
         $this->dataLayerRenderer = $dataLayerRenderer;
@@ -54,10 +55,9 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $storedDatalayer = $this->session->get(SessionUtility::ATTRIBUTE_NAME);
-        if ($storedDatalayer) {
+        if ($this->session->has(SessionUtility::ATTRIBUTE_NAME)) {
             if (in_array($route, $this->modules->getResponseRoutes(), true)) {
-                $dataLayer = json_decode($storedDatalayer, true);
+                $dataLayer = json_decode($this->session->get(SessionUtility::ATTRIBUTE_NAME), true);
             }
         } else {
             $parameters = $event->getParameters();

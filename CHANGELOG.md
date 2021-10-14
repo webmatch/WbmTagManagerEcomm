@@ -1,3 +1,7 @@
+# 2.1.6
+* change session handling
+* Add a condition to the kernel subscriber to prevent code unless we are in the storefront scope
+
 # 2.1.5
 * fix button link to extension config for sw >= 6.4
 

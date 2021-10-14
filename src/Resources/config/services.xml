@@ -21,17 +21,18 @@
         <service id="Wbm\TagManagerEcomm\Subscriber\StorefrontRenderSubscriber">
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
-            <argument type="service" id="Wbm\TagManagerEcomm\Utility\SessionUtility" />
+            <argument type="service" id="session" />
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="Wbm\TagManagerEcomm\Subscriber\KernelEventsSubscriber">
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerModules" />
             <argument type="service" id="Wbm\TagManagerEcomm\Services\DataLayerRenderer" />
-            <argument type="service" id="Wbm\TagManagerEcomm\Utility\SessionUtility" />
+            <argument type="service" id="session" />
+            <argument type="service" id="monolog.logger.wbmTagManager"/>
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="Wbm\TagManagerEcomm\Subscriber\CartAddPrice\AfterLineItemAddedSubscriber">
-            <argument type="service" id="Wbm\TagManagerEcomm\Utility\SessionUtility" />
+            <argument type="service" id="session" />
             <argument type="service" id="product.repository"/>
             <tag name="kernel.event_subscriber" />
         </service>

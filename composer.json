@@ -2,7 +2,7 @@
     "name": "webmatch/tag-manager-sw6",
     "keywords": ["shopware6", "shopware-6", "GTM", "datalayer", "datalayer-configuration", "google-tag-manager", "shopware-plugin"],
     "description": "Google Tag Manager + Enhanced E-Commerce Tracking",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "type": "shopware-platform-plugin",
     "license": "proprietary",
     "require": {
@@ -26,12 +26,12 @@
             "en-GB": "Integration of Google Tag Manager with implementation of Google Analytics Enhanced E-Commerce Tracking for Shopware 6"
         },
         "manufacturerLink": {
-            "de-DE": "http://www.webmatch.de",
-            "en-GB": "http://www.webmatch.de"
+            "de-DE": "https://www.webmatch.de",
+            "en-GB": "https://www.webmatch.de"
         },
         "supportLink": {
-            "de-DE": "http://www.webmatch.de",
-            "en-GB": "http://www.webmatch.de"
+            "de-DE": "https://github.com/webmatch/WbmTagManagerEcomm/issues/new/choose",
+            "en-GB": "https://github.com/webmatch/WbmTagManagerEcomm/issues/new/choose"
         }
     },
     "autoload": {
@@ -43,10 +43,6 @@
         "psr-4": {
             "Wbm\\TagManagerEcomm\\Test\\": "tests/"
         }
-    },
-    "suggest": {
-        "shopware/storefront": "Require '6.1' - '6.3'.",
-        "shopware/administration": "Require '6.1' - '6.3'. Allows you to set up the plugin easily"
     },
     "conflict": {
         "shopware/storefront": "<6,>=7",

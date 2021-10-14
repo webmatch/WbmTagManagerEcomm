@@ -13,12 +13,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Wbm\TagManagerEcomm\Utility\SessionUtility;
 
 class AfterLineItemAddedSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var SessionUtility
+     * @var SessionInterface
      */
     protected $session;
 
@@ -27,7 +28,7 @@ class AfterLineItemAddedSubscriber implements EventSubscriberInterface
      */
     protected $productRepository;
 
-    public function __construct(SessionUtility $session, EntityRepositoryInterface $productRepository)
+    public function __construct(SessionInterface $session, EntityRepositoryInterface $productRepository)
     {
         $this->session = $session;
         $this->productRepository = $productRepository;
