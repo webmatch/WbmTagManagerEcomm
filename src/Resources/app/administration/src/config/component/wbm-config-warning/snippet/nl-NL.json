@@ -1,0 +1,7 @@
+{
+    "wbm-tagmanager": {
+        "config": {
+            "warning": "Wijzigingen in de inhoud van de volgende velden kunnen ertoe leiden dat de Google Tag Manager niet meer goed werkt en mogen daarom alleen door ervaren gebruikers worden uitgevoerd. Als u wijzigingen aanbrengt, accepteert u dit risico."
+        }
+    }
+}

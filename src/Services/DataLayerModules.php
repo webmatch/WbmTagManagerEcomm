@@ -114,6 +114,16 @@ class DataLayerModules implements DataLayerModulesInterface
             : '';
     }
 
+    public function getGtmUrl(?string $salesChannelId = null): string
+    {
+        $overwrite = $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.gtmURLOverwrite',
+            $salesChannelId
+        ) ?: '';
+
+        return (!empty($overwrite)) ? $overwrite : 'https://www.googletagmanager.com/gtm.js';
+    }
+
     public function getExtendedURLParameter(?string $salesChannelId = null): string
     {
         return $this->systemConfigService->get(

@@ -1,0 +1,7 @@
+{
+    "wbm-tagmanager": {
+        "config": {
+            "warning": "Changes to the content of the following fields can break the functionality of Google Tag Manager and should therefore only be done by experienced users. If you make changes, you agree to this risk and accept."
+        }
+    }
+}

@@ -28,27 +28,6 @@
             <label>Track product clicks in listings</label>
             <label lang="de-DE">Produkt-Clicks in Listings tracken</label>
         </input-field>
-
-        <input-field type="text">
-            <name>extendedURLParameter</name>
-            <copyable>true</copyable>
-            <label>Extended URL parameter (optional/expert)</label>
-            <label lang="de-DE">Zusätzliche URL Parameter (optional/expert)</label>
-            <helpText><![CDATA[
-                Add your extending GTM-URL parameter for test/stage environments here. These will be added to the
-                googetagmanger.com URL. e.g.
-                <br>&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x <hr>
-                Changes to the content of this field can break the funcionality of Google Tag Manager and should
-                therefore only be done by experienced users.
-            ]]></helpText>
-            <helpText lang="de-DE"><![CDATA[
-                Schreiben Sie zusätzliche GTM-URL Paramter für Test/Staging Umgebung hier rein. Diese werden an die
-                googetagmanger.com URL angehängt. z.B.
-                <br>&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x <hr>
-                Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
-                ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
-            ]]></helpText>
-        </input-field>
     </card>
 
     <card>
@@ -63,6 +42,15 @@
             <helpText>Activate for integration into Shopware consent manager. Deactivate this, if you plan to use external cookie consent manager</helpText>
             <helpText lang="de-DE">Deaktivieren, wenn Sie einen externen Cookie Consent Manager benutzen möchten</helpText>
         </input-field>
+    </card>
+
+    <card>
+        <title>Manipulate TagManager Script</title>
+        <title lang="de-DE">TagManager Script manipulieren</title>
+
+        <component name="wbm-config-warning">
+            <name>configWarning</name>
+        </component>
 
         <input-field type="text">
             <name>scriptTagAttributes</name>
@@ -91,6 +79,48 @@
             <defaultValue>false</defaultValue>
             <label>Don't set attributes to datalayer script-tag</label>
             <label lang="de-DE">Setze diese Attribute nicht an das dataLayer Script-Tag</label>
+        </input-field>
+
+        <input-field type="text">
+            <name>gtmFunctionOverwrite</name>
+            <copyable>true</copyable>
+            <label>Overwrite GTM url</label>
+            <label lang="de-DE">GTM Url überschreiben</label>
+            <helpText><![CDATA[
+                If this field is filled, the googletagmanager url is overwritten. This can be used if you are
+                hosting the gtm.js by yourself
+                <br>Default: https://www.googletagmanager.com/gtm.js <hr>
+                Changes to the content of this field can break the functionality of Google Tag Manager and should
+                therefore only be done by experienced users.
+            ]]></helpText>
+            <helpText lang="de-DE"><![CDATA[
+                Falls diese Feld gefüllt ist, wird die googletagmanager-Url überschrieben. Dies können Sie
+                benutzen wenn Sie das gtm.js selbst hosten.
+                <br>Default: https://www.googletagmanager.com/gtm.js <hr>
+                Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
+                ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
+            ]]></helpText>
+        </input-field>
+
+        <input-field type="text">
+            <name>extendedURLParameter</name>
+            <copyable>true</copyable>
+            <label>Extended URL parameter (optional/expert)</label>
+            <label lang="de-DE">Zusätzliche URL Parameter (optional/expert)</label>
+            <helpText><![CDATA[
+                Add your extending GTM-URL parameter for test/stage environments here. These will be added to the
+                googetagmanger.com URL. e.g.
+                <br>&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x <hr>
+                Changes to the content of this field can break the functionality of Google Tag Manager and should
+                therefore only be done by experienced users.
+            ]]></helpText>
+            <helpText lang="de-DE"><![CDATA[
+                Schreiben Sie zusätzliche GTM-URL Paramter für Test/Staging Umgebung hier rein. Diese werden an die
+                googetagmanger.com URL angehängt. z.B.
+                <br>&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x <hr>
+                Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
+                ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
+            ]]></helpText>
         </input-field>
     </card>
 
