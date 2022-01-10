@@ -1,3 +1,7 @@
+# 2.2.0
+* Add possibility to overwrite TagManger function
+* Rearrange config / group risky options
+
 # 2.1.6
 * change session handling
 * Add a condition to the kernel subscriber to prevent code unless we are in the storefront scope

@@ -121,4 +121,12 @@ class DataLayerModules implements DataLayerModulesInterface
             $salesChannelId
         ) ?: '';
     }
+
+    public function getGtmFunctionOverwrite(?string $salesChannelId = null): string
+    {
+        return $this->systemConfigService->get(
+            'WbmTagManagerEcomm.config.gtmFunctionOverwrite',
+            $salesChannelId
+        ) ?: '';
+    }
 }

@@ -80,6 +80,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
                     'scriptTagAttributes' => $this->modules->getScriptTagAttributes($salesChannelId),
                     'dataLayerScriptTagAttributes' => $this->modules->getDataLayerScriptTagAttributes($salesChannelId),
                     'extendedUrlParameter' => $this->modules->getExtendedURLParameter($salesChannelId),
+                    'gtmFunctionOverwrite' => $this->modules->getGtmFunctionOverwrite($salesChannelId)
                 ]
             );
 
