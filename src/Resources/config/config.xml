@@ -103,7 +103,6 @@
             ]]></helpText>
         </input-field>
 
-        <!-- check if overwrite of complete gtm function or just gtm url -->
         <input-field type="textarea">
             <name>gtmFunctionOverwrite</name>
             <copyable>true</copyable>

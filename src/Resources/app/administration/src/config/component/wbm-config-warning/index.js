@@ -4,7 +4,7 @@ import enGB from './snippet/en-GB.json';
 
 console.log('wbm-config-warning');
 
-const { Component, Utils } = Shopware;
+const { Component } = Shopware;
 
 Component.register('wbm-config-warning', {
     template,
@@ -12,15 +12,5 @@ Component.register('wbm-config-warning', {
     snippets: {
         'de-DE': deDE,
         'en-GB': enGB
-    },
-    created() {
-        console.log(Utils.get('WbmTagManagerEcomm.config.isRiskAccepted'));
-        console.log(Utils.object.get('WbmTagManagerEcomm.config.isRiskAccepted'));
-        console.log(document.getElementById('WbmTagManagerEcomm.config.scriptTagAttributes'));
-    },
-    mounted() {
-        console.log(Utils.get('WbmTagManagerEcomm.config.isRiskAccepted'));
-        console.log(Utils.object.get('WbmTagManagerEcomm.config.isRiskAccepted'));
-        console.log(document.getElementById('WbmTagManagerEcomm.config.scriptTagAttributes'));
     }
 });
