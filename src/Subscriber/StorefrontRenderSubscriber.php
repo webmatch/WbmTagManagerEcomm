@@ -40,7 +40,7 @@ class StorefrontRenderSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StorefrontRenderEvent::class => 'onRender',
+            StorefrontRenderEvent::class => ['onRender', -1],
         ];
     }
 

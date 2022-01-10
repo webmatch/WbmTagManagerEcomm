@@ -1,3 +1,6 @@
+# 2.2.1
+* run storefront subscriber after all subscribers that use the default priority of 0
+
 # 2.2.0
 * Add possibility to overwrite TagManger function
 * Rearrange config / group risky options
