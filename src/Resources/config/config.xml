@@ -82,31 +82,11 @@
         </input-field>
 
         <input-field type="text">
-            <name>gtmFunctionOverwrite</name>
-            <copyable>true</copyable>
-            <label>Overwrite GTM url</label>
-            <label lang="de-DE">GTM Url überschreiben</label>
-            <helpText><![CDATA[
-                If this field is filled, the googletagmanager url is overwritten. This can be used if you are
-                hosting the gtm.js by yourself
-                <br>Default: https://www.googletagmanager.com/gtm.js <hr>
-                Changes to the content of this field can break the functionality of Google Tag Manager and should
-                therefore only be done by experienced users.
-            ]]></helpText>
-            <helpText lang="de-DE"><![CDATA[
-                Falls diese Feld gefüllt ist, wird die googletagmanager-Url überschrieben. Dies können Sie
-                benutzen wenn Sie das gtm.js selbst hosten.
-                <br>Default: https://www.googletagmanager.com/gtm.js <hr>
-                Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
-                ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
-            ]]></helpText>
-        </input-field>
-
-        <input-field type="text">
             <name>extendedURLParameter</name>
             <copyable>true</copyable>
-            <label>Extended URL parameter (optional/expert)</label>
-            <label lang="de-DE">Zusätzliche URL Parameter (optional/expert)</label>
+            <label>Extended URL parameter</label>
+            <label lang="de-DE">Zusätzliche URL Parameter</label>
+            <placeholder><![CDATA[&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x]]></placeholder>
             <helpText><![CDATA[
                 Add your extending GTM-URL parameter for test/stage environments here. These will be added to the
                 googetagmanger.com URL. e.g.
@@ -118,6 +98,27 @@
                 Schreiben Sie zusätzliche GTM-URL Paramter für Test/Staging Umgebung hier rein. Diese werden an die
                 googetagmanger.com URL angehängt. z.B.
                 <br>&amp;gtm_auth=sOmeR4nd0mh45h&amp;gtm_preview=env-69&amp;gtm_cookies_win=x <hr>
+                Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
+                ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
+            ]]></helpText>
+        </input-field>
+
+        <!-- check if overwrite of complete gtm function or just gtm url -->
+        <input-field type="textarea">
+            <name>gtmFunctionOverwrite</name>
+            <copyable>true</copyable>
+            <label>Overwrite GTM function</label>
+            <label lang="de-DE">GTM Funktion überschreiben</label>
+            <placeholder><![CDATA[function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl';f.parentNode.insertBefore(j,f);};]]></placeholder>
+            <helpText><![CDATA[
+                If this field is filled, the complete googletagmanager-function is overwritten. Values from
+                "Extended URL parameter" will be ignored then.<hr>
+                Changes to the content of this field can break the functionality of Google Tag Manager and should
+                therefore only be done by experienced users.
+            ]]></helpText>
+            <helpText lang="de-DE"><![CDATA[
+                Falls dieses Feld gefüllt ist, wird die googletagmanager-function überschrieben. Der Inhalt von
+                "Zusätzliche URL Parameter" wird dann ignoriert.<hr>
                 Änderungen am Inhalt dieses Feldes können dazu führen, dass der Google Tag Manager nicht mehr
                 ordnungsgemäß funktioniert und sollte daher nur von erfahrenden Nutzern durchgeführt werden.
             ]]></helpText>
