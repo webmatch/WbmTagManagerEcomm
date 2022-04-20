@@ -1,3 +1,6 @@
+# 2.2.2
+* remove useless console log in admin
+
 # 2.2.1
 * run storefront subscriber after all subscribers that use the default priority of 0
 
