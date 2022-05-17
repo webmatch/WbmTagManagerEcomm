@@ -1,3 +1,6 @@
+# 2.2.3
+* rebuild storefront with latest shopware version to prevent error in console
+
 # 2.2.2
 * remove useless console log in admin
 
