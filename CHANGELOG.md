@@ -1,3 +1,6 @@
+# 2.2.4
+* fix addToCart and removeFromCart by updating the check for scope
+
 # 2.2.3
 * rebuild storefront with latest shopware version to prevent error in console
 
