@@ -2,7 +2,7 @@
 
 namespace Wbm\TagManagerEcomm\Subscriber;
 
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Routing\KernelListenerPriorities;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,9 +128,9 @@ class KernelEventsSubscriber implements EventSubscriberInterface
 
     private function isStorefrontRequest(Request $request)
     {
-        if ($request->attributes->has('_routeScope')
-            && $request->attributes->get('_routeScope') instanceof RouteScope
-            && $request->attributes->get('_routeScope')->hasScope('storefront')
+        if ($request->attributes->has('sw-context')
+            && $request->attributes->get('sw-context') instanceof Context
+            && $request->attributes->get('sw-context')->getScope() === 'user'
         ) {
             return true;
         }
