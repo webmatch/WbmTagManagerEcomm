@@ -1,3 +1,6 @@
+# 2.2.5
+* update readme with new plugin link
+
 # 2.2.4
 * fix addToCart and removeFromCart by updating the check for scope
 
