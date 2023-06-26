@@ -1,5 +1,14 @@
-WbmTagManagerEcomm - GTM integration and dataLayer configuration
-=====
+# WbmTagManagerEcomm - GTM integration and dataLayer configuration
+
+---
+
+This Plugin will no longer be maintained.  
+Please use the new Plugin [WbmTagManager](https://store.shopware.com/detail/index/sArticle/7813615/number/wbm8772526137131)  
+It has full support to GA4 and also a version for Shopware 6.5
+
+---  
+
+---
 
 This plugin integrates a new module within the [Shopware](https://www.shopware.de) backend that allows for the integration 
 of the Google Tag Manager Snippet and the configuration of the dataLayer content.
