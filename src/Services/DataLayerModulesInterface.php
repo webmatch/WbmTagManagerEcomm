@@ -8,6 +8,8 @@ interface DataLayerModulesInterface
 
     public function getContainerId(?string $salesChannelId = null): ?string;
 
+    public function getResponseRoutes(): array;
+    
     public function isActive(?string $salesChannelId = null): ?bool;
 
     public function isTrackingProductClicks(?string $salesChannelId = null): ?bool;
