@@ -1,3 +1,6 @@
+# 2.2.6
+* Add missing public function to interface `DataLayerModulesInterface`
+
 # 2.2.5
 * update readme with new plugin link
 
