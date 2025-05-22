@@ -3,7 +3,7 @@
 ---
 
 This Plugin will no longer be maintained.  
-Please use the new Plugin [WbmTagManager](https://store.shopware.com/detail/index/sArticle/7813615/number/wbm8772526137131)  
+Please use the new Plugin [WbmTagManager](https://store.shopware.com/de/wbm8772526137131m/google-tag-manager-ga4-server-side-tracking.html)  
 It has full support to GA4 and also a version for Shopware 6.5
 
 ---  
